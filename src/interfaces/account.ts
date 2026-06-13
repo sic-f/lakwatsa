@@ -16,6 +16,15 @@ export interface AccountProfile {
   lastName?: string | null;
 }
 
+export interface AccountProfileForm {
+  id: string;
+  email: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  errors?: Error | null;
+  message?: string | null;
+}
+
 export interface ChangePassword {
   id: number;
   oldPassword?: string;
