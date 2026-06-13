@@ -1,10 +1,11 @@
 'use server';
 
+import { Error } from '@/interfaces/account';
 import { parseErrors } from '@/services/parseErrors';
 import { setSession } from '@/services/session';
 import { redirect } from 'next/navigation';
 
-export async function register(state, formData: FormData) {
+export async function register(_: { errors: Error } | undefined, formData: FormData): Promise<{ errors: Error } | undefined> {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/accounts`,
     {
@@ -20,7 +21,7 @@ export async function register(state, formData: FormData) {
 
   if (!response.ok) {
     const errorsResponse = await response.json();
-    const errors = await parseErrors(errorsResponse.errors);
+    const errors: Error = await parseErrors(errorsResponse.errors);
 
     return { errors };
   }
