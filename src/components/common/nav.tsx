@@ -14,7 +14,7 @@ export default async function Nav() {
   async function renderProfileLink() {
     if (await isEmptySession()) return;
     
-    return <Link href="/profile" className="ml-8">Account</Link>
+    return <Link href="/account" className="ml-8">Account</Link>
   }
 
   async function renderBroPage() {
