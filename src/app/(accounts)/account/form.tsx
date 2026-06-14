@@ -2,7 +2,7 @@
 
 import { useActionState } from 'react';
 import { AccountProfile, AccountProfileForm } from '@/interfaces/account';
-import { AccountError } from '@/constants/accountError';
+import { AccountError } from '@/constants/account-error';
 import { updateAccount } from '@/actions/account/update';
 import { isEmpty } from 'lodash';
 
@@ -35,7 +35,7 @@ const Form = ({ accountData }: { accountData: AccountProfile }) => {
     );
   }
 
-  const renderEmailField = async () => {
+  const renderEmailField = () => {
     return (
       <>
         <label className="label">Email</label>

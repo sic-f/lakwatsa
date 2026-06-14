@@ -3,7 +3,7 @@
 import { AccountProfile, AccountProfileForm, Error } from '@/interfaces/account';
 import { getAccount } from '@/services/identity';
 import { getToken, setSession } from '@/services/session';
-import { parseErrors } from '@/services/parseErrors';
+import { parseErrors } from '@/services/parse-errors';
 
 export async function updateAccount(state: AccountProfile, formData: FormData) : Promise<AccountProfileForm> {
   const response = await fetch(
