@@ -2,7 +2,7 @@
 
 import { Error } from '@/interfaces/account';
 import { parseErrors } from '@/services/parse-errors';
-import { endSession, setSession } from '@/services/session';
+import { endSession, setSession, setSessionWithRefresh } from '@/services/session';
 import { redirect } from 'next/navigation';
 
 export async function login(_: { errors: Error; } | undefined, formData: FormData): Promise<{ errors?: Error, message?: string } | undefined> {
@@ -30,7 +30,7 @@ export async function login(_: { errors: Error; } | undefined, formData: FormDat
 
   const data = await response.json();
 
-    await setSession(data.token);
+    await setSessionWithRefresh(data);
     redirect('/');
 }
 

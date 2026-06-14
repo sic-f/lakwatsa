@@ -2,7 +2,7 @@
 
 import { Error } from '@/interfaces/account';
 import { parseErrors } from '@/services/parse-errors';
-import { setSession } from '@/services/session';
+import { setSession, setSessionWithRefresh } from '@/services/session';
 import { redirect } from 'next/navigation';
 
 export async function register(_: { errors: Error } | undefined, formData: FormData): Promise<{ errors: Error } | undefined> {
@@ -28,7 +28,7 @@ export async function register(_: { errors: Error } | undefined, formData: FormD
 
   const data = await response.json();
 
-  await setSession(data.token);
+  await setSessionWithRefresh(data);
 
   redirect('/');
 }
