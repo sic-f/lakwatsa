@@ -4,6 +4,7 @@ import { getToken, isEmptySession } from './session';
 import { jwtDecode } from 'jwt-decode';
 import { AccountProfile, DecodedToken } from '@/interfaces/account';
 import { NIL as NIL_UUID } from 'uuid';
+import { isEmpty } from 'lodash';
 
 let identityData: DecodedToken;
 
@@ -12,8 +13,8 @@ export const getAccount = async (): Promise<AccountProfile> => {
     return {
       id: NIL_UUID,
       email: '',
-      firstName: null,
-      lastName: null,
+      firstName: '',
+      lastName: '',
     };
   }
 
@@ -28,11 +29,11 @@ export const getAccount = async (): Promise<AccountProfile> => {
   };
 }
 
-export const broName = async (): Promise<string> => {
-  if (await isEmptySession()) return '';
+export const broName = async (): Promise<string | undefined> => {
+  if (await isEmptySession()) return;
 
   const token = await getToken();
   identityData = jwtDecode<DecodedToken>(token!);
 
-  return identityData.given_name ?? identityData.email;
+  return isEmpty(identityData.given_name) ? identityData.email : identityData.given_name;
 };
