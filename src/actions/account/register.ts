@@ -1,7 +1,7 @@
 'use server';
 
 import { Error } from '@/interfaces/account';
-import { parseErrors } from '@/services/parseErrors';
+import { parseErrors } from '@/services/parse-errors';
 import { setSession } from '@/services/session';
 import { redirect } from 'next/navigation';
 
