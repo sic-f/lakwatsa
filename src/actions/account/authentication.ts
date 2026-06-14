@@ -1,11 +1,11 @@
 'use server';
 
 import { Error } from '@/interfaces/account';
-import { parseErrors } from '@/services/parseErrors';
+import { parseErrors } from '@/services/parse-errors';
 import { endSession, setSession } from '@/services/session';
 import { redirect } from 'next/navigation';
 
-export async function login(_: { errors: Error; } | undefined, formData: FormData): Promise<{ errors: Error, message: string } | undefined> {
+export async function login(_: { errors: Error; } | undefined, formData: FormData): Promise<{ errors?: Error, message?: string } | undefined> {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/sessions`,
     {
