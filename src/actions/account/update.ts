@@ -1,11 +1,13 @@
 'use server';
 
-import { AccountProfile, AccountProfileForm, Error } from '@/interfaces/account';
+import { AccountProfileForm, Error } from '@/interfaces/account';
 import { getAccount } from '@/services/identity';
 import { getToken, setSession } from '@/services/session';
 import { parseErrors } from '@/services/parse-errors';
+import { refreshToken } from '@/services/refreshToken';
 
-export async function updateAccount(state: AccountProfile, formData: FormData) : Promise<AccountProfileForm> {
+export async function updateAccount(state: AccountProfileForm, formData: FormData): Promise<AccountProfileForm> {
+  await refreshToken();
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/accounts/${state.id}`,
     {
@@ -21,7 +23,7 @@ export async function updateAccount(state: AccountProfile, formData: FormData) :
       }),
     }
   );
-
+  
   if (!response.ok) {
     const errorsResponse = await response.json();
     const errors: Error = await parseErrors(errorsResponse.errors);
