@@ -30,6 +30,7 @@ export const endSession = async () => {
   const cookieStore = await cookies();
 
   cookieStore.delete('session');
+  cookieStore.delete('refreshToken');
 }
 
 export const getToken = async () => {
