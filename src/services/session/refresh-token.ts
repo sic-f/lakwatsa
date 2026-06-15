@@ -3,9 +3,9 @@
 import { TokenExpiry } from '@/constants/session';
 import { HttpStatusCode } from '@/constants/common';
 import { endSession, getRefreshToken, getToken, setSessionWithRefresh } from '../session';
+import { redirect } from 'next/navigation';
 import dayjs, { Dayjs } from 'dayjs';
 import duration from 'dayjs/plugin/duration';
-import { redirect } from 'next/navigation';
 import { tokenExpiry } from './get-token-expiry';
 
 export async function refreshToken(): Promise<void> {
@@ -33,16 +33,19 @@ async function refresh() {
       body: JSON.stringify(await getRefreshToken()),
     });
 
-  console.log("👌", `${response.status}: ${response.statusText}`);
-
-  if (response.status === HttpStatusCode.Unauthorized) {
+  if (isRefreshTokenExpired(response)) {
     await endSession();
-    redirect('/login');
-    // return { message: 'Tokens expired. Please acquire new ones by signing in again.' }
+
+    redirect('/expired');
   }
 
   if (response.ok) {
     const data = await response.json();
+
     await setSessionWithRefresh(data);
   }
+}
+
+function isRefreshTokenExpired(response: Response) {
+  return response.status === HttpStatusCode.Unauthorized;
 }
