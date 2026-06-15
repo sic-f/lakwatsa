@@ -1,6 +1,6 @@
 'use server';
 
-import { HttpStatusCode } from '@/constants/common';
+import { HttpStatusCode } from '@/constants/http-status-codes';
 import { Error as ApplicationErrors } from '@/interfaces/account';
 import { parseErrors } from '@/services/parse-errors';
 import { endSession, getRefreshToken, setSession, setSessionWithRefresh } from '@/services/session';

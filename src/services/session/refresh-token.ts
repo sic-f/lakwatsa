@@ -1,8 +1,8 @@
 'use server';
 
 import { TokenExpiry } from '@/constants/session';
-import { HttpStatusCode } from '@/constants/common';
-import { endSession, getRefreshToken, getToken, setSessionWithRefresh } from '../session';
+import { HttpStatusCode } from '@/constants/http-status-codes';
+import { endSession, getRefreshToken, setSessionWithRefresh } from '../session';
 import { redirect } from 'next/navigation';
 import dayjs, { Dayjs } from 'dayjs';
 import duration from 'dayjs/plugin/duration';
@@ -24,7 +24,7 @@ function secondsLeftBeforeExpiry(expiry: Dayjs): number {
   return dayjs.duration(expiry.diff(dayjs())).seconds();
 }
 
-async function refresh() {
+async function refresh(): Promise<void> {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/sessions/refresh`,
     {
