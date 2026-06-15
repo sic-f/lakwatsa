@@ -5,15 +5,15 @@ import { getAccount, broName } from '@/services/identity';
 import { hasSession, isEmptySession } from '@/services/session';
 
 export default async function Nav() {
-  async function renderLogoutLink () {
+  async function renderLogoutLink() {
     if (await isEmptySession()) return;
 
     return <Link href="/#" onClick={logout} className="mx-8">Logout</Link>;
   }
-  
+
   async function renderProfileLink() {
     if (await isEmptySession()) return;
-    
+
     return <Link href="/account" className="ml-8">Account</Link>
   }
 
@@ -22,7 +22,7 @@ export default async function Nav() {
 
     return <Link href={`/${(await getAccount()).id}`}>Hi {`${await broName()}`}</Link>
   }
-  
+
   async function renderAccountRelatedLinks() {
     if (await hasSession()) return;
 
