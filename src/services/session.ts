@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
 export const hasSession = async () => {
   const cookieStore = await cookies();
 
-  return cookieStore.has("session");
+  return cookieStore.has('session');
 }
 
 export const isEmptySession = async () => !await hasSession();
