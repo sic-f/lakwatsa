@@ -4,7 +4,7 @@ import { AccountProfileForm, Error } from '@/interfaces/account';
 import { getAccount } from '@/services/identity';
 import { getToken, setSession } from '@/services/session';
 import { parseErrors } from '@/services/parse-errors';
-import { refreshToken } from '@/services/refreshToken';
+import { refreshToken } from '@/services/session/refresh-token';
 
 export async function updateAccount(state: AccountProfileForm, formData: FormData): Promise<AccountProfileForm> {
   await refreshToken();
