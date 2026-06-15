@@ -1,11 +1,17 @@
 'use server';
 
-import { Error } from '@/interfaces/account';
+import { HttpStatusCode } from '@/constants/common';
+import { Error as ApplicationErrors } from '@/interfaces/account';
 import { parseErrors } from '@/services/parse-errors';
-import { endSession, setSession, setSessionWithRefresh } from '@/services/session';
+import { endSession, getRefreshToken, setSession, setSessionWithRefresh } from '@/services/session';
 import { redirect } from 'next/navigation';
 
-export async function login(_: { errors: Error; } | undefined, formData: FormData): Promise<{ errors?: Error, message?: string } | undefined> {
+export async function login(
+  _: { errors: ApplicationErrors } | undefined,
+  formData: FormData): Promise<{
+    errors?: ApplicationErrors,
+    message?: string
+  } | undefined> {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/sessions`,
     {
@@ -30,15 +36,31 @@ export async function login(_: { errors: Error; } | undefined, formData: FormDat
 
   const data = await response.json();
 
-    await setSessionWithRefresh(data);
-    redirect('/');
+  await setSessionWithRefresh(data);
+  redirect('/');
 }
 
-export const logout = async () => {
+export async function logout() {
+  const refreshToken = await getRefreshToken();
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/sessions`,
+    {
+      method: 'DELETE',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Authentication: `Bearer ${refreshToken}`
+      }),
+      body: JSON.stringify(refreshToken),
+    }
+  );
+
+  if (isErrorResponseExcludingTokenAlreadyRevoked(response)) throw new Error(`${response.status} ${response.statusText}`)
+
   await endSession();
   redirect('/');
 }
 
-const buildPayload = (formData: FormData) => {
-  return
+function isErrorResponseExcludingTokenAlreadyRevoked(response: Response) {
+  return !response.ok && response.status !== HttpStatusCode.NotFound;
 }
