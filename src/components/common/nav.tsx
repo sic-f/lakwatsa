@@ -35,7 +35,7 @@ export default async function Nav() {
   }
 
   return (
-    <nav className="navbar bg-primary">
+    <nav className="navbar fixed top-0 bg-primary">
       <div className="navbar-start">
         <Link href="/" className="ml-3 text-primary-content text-lg">
           <Image src="https://picsum.photos/48" width={48} height={48} alt="Brand logo" className="inline mr-2" />
