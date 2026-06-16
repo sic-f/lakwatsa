@@ -1,29 +1,32 @@
+import { ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { logout } from '@/actions/account/authentication';
-import { getAccount, broName } from '@/services/identity';
 import { hasSession, isEmptySession } from '@/services/session';
+import { getAccount, broName } from '@/services/identity';
+import { logout } from '@/actions/account/authentication';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBuilding } from '@fortawesome/free-regular-svg-icons';
 
 export default async function Nav() {
-  async function renderLogoutLink() {
+  async function renderLogoutLink(): Promise<ReactNode> {
     if (await isEmptySession()) return;
 
     return <Link href="/#" onClick={logout} className="mx-8">Logout</Link>;
   }
 
-  async function renderProfileLink() {
+  async function renderProfileLink(): Promise<ReactNode> {
     if (await isEmptySession()) return;
 
     return <Link href="/account" className="ml-8">Account</Link>
   }
 
-  async function renderBroPage() {
+  async function renderBroPage(): Promise<ReactNode> {
     if (await isEmptySession()) return;
 
-    return <Link href={`/${(await getAccount()).id}`}>Hi {`${await broName()}`}</Link>
+    return <Link href={`/${(await getAccount()).id}`} className="ml-8">Hi {`${await broName()}`}</Link>
   }
 
-  async function renderAccountRelatedLinks() {
+  async function renderAccountRelatedLinks(): Promise<ReactNode> {
     if (await hasSession()) return;
 
     return (
@@ -31,6 +34,17 @@ export default async function Nav() {
         <Link href="/register">Create Account</Link>
         <Link href="/login" className="mx-8">Sign In</Link>
       </div>
+    );
+  }
+
+  async function renderAddPlaceLink(): Promise<ReactNode> {
+    if (await isEmptySession()) return;
+
+    return (
+      <Link href="/places/submit" className="flex">
+        <FontAwesomeIcon icon={faBuilding} className="mr-1.5 size-[1.2em]" />
+        Add Place
+      </Link >
     );
   }
 
@@ -43,10 +57,11 @@ export default async function Nav() {
         </Link>
       </div>
       <div className="navbar-end">
-        {renderAccountRelatedLinks()}
-        {renderBroPage()}
-        {renderProfileLink()}
-        {renderLogoutLink()}
+        {await renderAddPlaceLink()}
+        {await renderAccountRelatedLinks()}
+        {await renderBroPage()}
+        {await renderProfileLink()}
+        {await renderLogoutLink()}
       </div>
     </nav>
   )
