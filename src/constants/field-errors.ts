@@ -6,3 +6,16 @@ export const AccountError = {
   PasswordRequiresUpper: 'PasswordRequiresUpper',
   DuplicateUserName: 'DuplicateUserName',
 };
+
+export const PlaceError = {
+  Name: 'Name',
+  Description: 'Description',
+  Information: 'Information',
+  Address: 'Address',
+  Mobile: 'Mobile',
+  Landline: 'Landline',
+  Email: 'Email',
+  Website: 'Website',
+  Facebook: 'Facebook',
+  Instagram: 'Instagram',
+};
