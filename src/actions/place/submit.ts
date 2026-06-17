@@ -48,7 +48,7 @@ export async function submit(state: PlaceForm, formData: FormData): Promise<Plac
   }
 
   const data = await response.json();
-
+  
   return {
     name: formData.get('name')?.toString(),
     description: formData.get('description')?.toString(),
@@ -60,5 +60,6 @@ export async function submit(state: PlaceForm, formData: FormData): Promise<Plac
     website: formData.get('website')?.toString(),
     facebook: formData.get('facebook')?.toString(),
     instagram: formData.get('instagram')?.toString(),
+    message: data.message,
   };
 }
