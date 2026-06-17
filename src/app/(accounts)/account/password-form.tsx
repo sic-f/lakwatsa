@@ -3,7 +3,7 @@
 import { useActionState } from 'react';
 import FieldError from '@/components/common/field-error';
 import { changePassword } from '@/actions/account/change-password';
-import { AccountError } from '@/constants/account-error';
+import { AccountError } from '@/constants/field-errors';
 
 const PasswordForm = ({ id }: { id: string }) => {
   const [password, action] = useActionState(changePassword, { id });

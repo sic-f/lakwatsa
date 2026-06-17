@@ -2,7 +2,7 @@
 
 import { useActionState } from 'react';
 import { AccountProfile, AccountProfileForm } from '@/interfaces/account';
-import { AccountError } from '@/constants/account-error';
+import { AccountError } from '@/constants/field-errors';
 import { updateAccount } from '@/actions/account/update';
 import { isEmpty } from 'lodash';
 

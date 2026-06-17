@@ -13,7 +13,7 @@ const FieldError = ({ errors, field }: Props) => {
   if (hasMultipleErrorsPerField(errors, field)) renderMultipleErrors(errors[field]);
 
   return (
-    <p className="text-red-400">
+    <p className="validator-hint">
       {renderFieldError(errors, field)}
     </p>
   );
@@ -25,7 +25,7 @@ const renderMultipleErrors = (errors: Array<string>) => {
   return (
     <ul className="mb-3">
       {errors.map((error, index) => {
-        return <li className="text-red-400" key={index}>{error}</li>;
+        return <li className="validator-hint" key={index}>{error}</li>;
       })}
     </ul>
   );
