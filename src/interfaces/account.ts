@@ -1,6 +1,4 @@
-export interface Error {
-  [key: string]: string[];
-}
+import { Error } from '@/interfaces/error';
 
 export interface DecodedToken {
   sub: string;

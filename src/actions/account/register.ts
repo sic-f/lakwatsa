@@ -1,8 +1,8 @@
 'use server';
 
-import { Error } from '@/interfaces/account';
+import { Error } from '@/interfaces/error';
 import { parseErrors } from '@/services/parse-errors';
-import { setSession, setSessionWithRefresh } from '@/services/session';
+import { setSessionWithRefresh } from '@/services/session';
 import { redirect } from 'next/navigation';
 
 export async function register(_: { errors: Error } | undefined, formData: FormData): Promise<{ errors: Error } | undefined> {

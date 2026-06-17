@@ -1,6 +1,7 @@
 'use server';
 
-import { AccountProfileForm, Error } from '@/interfaces/account';
+import { Error } from '@/interfaces/error';
+import { AccountProfileForm } from '@/interfaces/account';
 import { getAccount } from '@/services/identity';
 import { getToken, setSession } from '@/services/session';
 import { parseErrors } from '@/services/parse-errors';
