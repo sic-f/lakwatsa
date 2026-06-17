@@ -18,7 +18,7 @@ export interface AccountProfile {
 
 export interface AccountProfileForm {
   id: string;
-  email: string;
+  email: string | undefined;
   firstName: string | undefined;
   lastName: string | undefined;
   errors?: Error;

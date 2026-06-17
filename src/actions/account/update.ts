@@ -30,7 +30,7 @@ export async function updateAccount(state: AccountProfileForm, formData: FormDat
 
     return {
       id: state.id,
-      email: formData.get('email')?.toString()!,
+      email: formData.get('email')?.toString(),
       firstName: formData.get('firstName')?.toString(),
       lastName: formData.get('lastName')?.toString(),
       errors: errors,
