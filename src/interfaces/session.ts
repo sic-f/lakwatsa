@@ -11,3 +11,25 @@ export interface Token {
   typ: string;
   nbf: number;
 }
+
+export interface Context {
+  ok: boolean;
+  status: number;
+  statusText: string;
+  url: string;
+  options: Options;
+  data?: {};
+}
+
+export interface AfterTokenRefreshContext {
+  data: {};
+  ok: boolean;
+  status: number;
+  statusText: string;
+}
+
+export interface Options {
+  method: string;
+  headers: [string[]];
+  body?: string;
+}
