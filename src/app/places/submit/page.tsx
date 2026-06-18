@@ -21,7 +21,7 @@ export default function SubmitPlace(): ReactNode {
   }
 
   return (
-    <div className='flex flex-col justify-center items-center my-8'>
+    <div className='flex flex-col justify-center items-center md:my-8'>
       {place.message && renderSubmitSuccess()}
       <form action={action}>
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
