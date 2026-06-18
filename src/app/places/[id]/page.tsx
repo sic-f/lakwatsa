@@ -1,46 +1,27 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
-import { getToken } from '@/services/session';
 import { usePathname } from 'next/navigation';
+import { AfterTokenRefreshContext, Context } from '@/interfaces/session';
 import { catchSession } from '@/services/session/catch-session';
-import { HttpStatusCode } from '@/constants/http-status-codes';
+import fetchPlace from '@/actions/place/fetch-place';
 
 export default function Place(): Promise<ReactNode> {
   const path = usePathname();
-  const id = path.split('/').slice(1)[1];
-  const [place, setPlace] = useState({ name: '(...fetching name)' });
+  const id: string = path.split('/').slice(1)[1];
+  const [place, setPlace] = useState({});
 
   useEffect(() => {
-    async function fetchPlace() {
-      const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${id}`;
-      const options: {} = { method: 'GET', headers: new Headers({ Authorization: `Bearer ${await getToken()}` }) };
+    async function fetch() {
+      let result: Context | AfterTokenRefreshContext = await fetchPlace(id);
+      result = await catchSession(result);
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${id}`,
-        {
-          method: 'GET',
-          headers: new Headers({ Authorization: `Bearer ${await getToken()}` })
-        }
-      );
+      if (!result.ok) throw new Error(`${result.status} ${result.statusText}`);
 
-      if (response.status === HttpStatusCode.Unauthorized) {
-        const result = await catchSession(url, options);
-
-        if (!result.ok) throw new Error(`${result.status} ${result.statusText}`);
-
-        return setPlace(result.data);
-      }
-
-      if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
-      
-      const data = await response.json();
-
-      setPlace(data);
+      setPlace(result.data);
     }
 
-    fetchPlace();
-
+    fetch();
   }, [])
 
   return (
@@ -51,7 +32,7 @@ export default function Place(): Promise<ReactNode> {
           alt="Shoes" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{place.name}</h2>
+        <h2 className="card-title">{place?.name}</h2>
         <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
         <div className="card-actions justify-end">
           <button className="btn btn-primary">Buy Now</button>
