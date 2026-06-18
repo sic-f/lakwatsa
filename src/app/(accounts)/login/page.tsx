@@ -1,7 +1,7 @@
 'use client';
 
 import { useActionState } from 'react';
-import { AccountError as FieldError } from '@/constants/account-error';
+import { AccountError as FieldError } from '@/constants/field-errors';
 import { login } from '@/actions/account/authentication';
 import { isEmpty } from 'lodash';
 
