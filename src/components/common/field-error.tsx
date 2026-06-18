@@ -7,13 +7,15 @@ interface Props {
   field: string;
 }
 
-const FieldError = ({ errors, field }: Props): ReactNode | undefined => {
+export default function FieldError({ errors, field }: Props): ReactNode | undefined {
   if (isEmpty(errors)) return;
   if (isEmpty(errors[field])) return;
 
-  const hasMultipleErrorsPerField = (errors: Error, field: string) => errors[field].length > 1;
+  function hasMultipleErrorsPerField(errors: Error, field: string) {
+    return errors[field].length > 1;
+  }
 
-  const renderMultipleErrors = (errors: Array<string>) => {
+  function renderMultipleErrors(errors: Array<string>) {
     return (
       <ul className="mb-3">
         {errors.map((error, index) => {
@@ -23,15 +25,11 @@ const FieldError = ({ errors, field }: Props): ReactNode | undefined => {
     );
   }
 
-  if (hasMultipleErrorsPerField(errors, field)) renderMultipleErrors(errors[field]);
+  function renderFieldError(errors: Error, field: string) {
+    if (hasMultipleErrorsPerField(errors, field)) renderMultipleErrors(errors[field]);
 
-  const renderFieldError = (errors: Error, field: string) => errors[field][0];
+    return <p className="text-red-400">{errors[field][0]}</p>;
+  }
 
-  return (
-    <p className="text-red-400">
-      {renderFieldError(errors, field)}
-    </p>
-  );
+  return renderFieldError(errors, field);
 }
-
-export default FieldError;
