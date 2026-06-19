@@ -9,4 +9,6 @@ export const initialState = {
   website: undefined,
   facebook: undefined,
   instagram: undefined,
+  errors: undefined,
+  message: undefined,
 };

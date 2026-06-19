@@ -1,11 +1,12 @@
 'use server';
 
-import { PlaceForm } from "@/interfaces/place";
+import { redirect } from 'next/navigation';
+import { PlaceForm } from '@/interfaces/place';
 import { getToken } from "@/services/session";
 import { refreshToken } from "@/services/session/refresh-token";
 
 export async function submit(state: PlaceForm, formData: FormData): Promise<PlaceForm> {
-  await refreshToken();
+  await refreshToken({});
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/places`,
     {
@@ -49,17 +50,5 @@ export async function submit(state: PlaceForm, formData: FormData): Promise<Plac
 
   const data = await response.json();
   
-  return {
-    name: formData.get('name')?.toString(),
-    description: formData.get('description')?.toString(),
-    information: formData.get('information')?.toString(),
-    address: formData.get('address')?.toString(),
-    mobile: formData.get('mobile')?.toString(),
-    landline: formData.get('landline')?.toString(),
-    email: formData.get('email')?.toString(),
-    website: formData.get('website')?.toString(),
-    facebook: formData.get('facebook')?.toString(),
-    instagram: formData.get('instagram')?.toString(),
-    message: data.message,
-  };
+  redirect(`/places/${data.place.id}`);
 }

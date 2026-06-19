@@ -8,8 +8,10 @@ import dayjs, { Dayjs } from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { tokenExpiry } from './get-token-expiry';
 
-export async function refreshToken(): Promise<void> {
-  if (isTokenActive(await tokenExpiry())) return;
+export async function refreshToken({ clientCheck = true }): Promise<void> {
+  if (clientCheck) {
+    if (isTokenActive(await tokenExpiry())) return;
+  }
 
   await refresh();
 }
