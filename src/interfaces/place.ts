@@ -2,6 +2,7 @@ import { Error } from '@/interfaces/error';
 import { Options } from './session';
 
 export interface PlaceForm {
+  id?: string;
   name: string | undefined;
   description: string | undefined;
   information: string | undefined;
