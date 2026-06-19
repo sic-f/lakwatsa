@@ -1,10 +1,11 @@
 'use server';
 
 import { HttpStatusCode } from "@/constants/http-status-codes";
-import { Context, Options } from "@/interfaces/session";
+import { Options } from '@/interfaces/session';
+import { PlaceContext } from '@/interfaces/place';
 import { getToken } from "@/services/session";
 
-export default async function fetchPlace(id: string): Promise<Context> {
+export default async function fetchPlace(id: string): Promise<PlaceContext> {
   const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${id}`;
   const options: Options = { method: 'GET', headers: new Headers({ Authorization: `Bearer ${await getToken()}` }) };
 

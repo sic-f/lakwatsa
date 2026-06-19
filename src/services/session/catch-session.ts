@@ -1,11 +1,12 @@
 'use server';
 
-import { HttpStatusCode } from "@/constants/http-status-codes";
-import { getToken } from "../session";
-import { refreshToken } from "./refresh-token";
-import { AfterTokenRefreshContext, Context } from "@/interfaces/session";
+import { HttpStatusCode } from '@/constants/http-status-codes';
+import { AfterTokenRefreshContext } from '@/interfaces/session';
+import { PlaceContext } from '@/interfaces/place';
+import { getToken } from '../session';
+import { refreshToken } from './refresh-token';
 
-export async function catchSession(context: Context): Promise<Context | AfterTokenRefreshContext> {
+export async function catchSession(context: PlaceContext): Promise<PlaceContext | AfterTokenRefreshContext> {
   if (context.status !== HttpStatusCode.Unauthorized) return context;
 
   await refreshToken({ clientCheck: false });

@@ -1,4 +1,5 @@
 import { Error } from '@/interfaces/error';
+import { Options } from './session';
 
 export interface PlaceForm {
   name: string | undefined;
@@ -26,4 +27,13 @@ export interface Place {
   website: string;
   facebook: string;
   instagram: string;
+}
+
+export interface PlaceContext {
+  ok: boolean;
+  status: number;
+  statusText: string;
+  url: string;
+  options: Options;
+  data?: PlaceForm;
 }

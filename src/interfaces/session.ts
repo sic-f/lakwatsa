@@ -12,15 +12,6 @@ export interface Token {
   nbf: number;
 }
 
-export interface Context {
-  ok: boolean;
-  status: number;
-  statusText: string;
-  url: string;
-  options: Options;
-  data?: {};
-}
-
 export interface AfterTokenRefreshContext {
   data: {};
   ok: boolean;
