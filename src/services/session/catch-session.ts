@@ -17,7 +17,5 @@ export async function catchSession(context: PlaceContext): Promise<PlaceContext 
 
   const data = await response.json();
 
-  const result = { data: data, ok: response.ok, status: response.status, statusText: response.statusText };
-
-  return result;
+  return { data: data, ok: response.ok, status: response.status, statusText: response.statusText };
 }
