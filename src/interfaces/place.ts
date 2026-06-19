@@ -14,3 +14,16 @@ export interface PlaceForm {
   errors?: Error;
   message?: string;
 }
+
+export interface Place {
+  name: string;
+  description: string;
+  information: string;
+  address: string;
+  mobile: string;
+  landline: string;
+  email: string;
+  website: string;
+  facebook: string;
+  instagram: string;
+}

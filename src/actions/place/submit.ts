@@ -5,7 +5,7 @@ import { getToken } from "@/services/session";
 import { refreshToken } from "@/services/session/refresh-token";
 
 export async function submit(state: PlaceForm, formData: FormData): Promise<PlaceForm> {
-  await refreshToken();
+  await refreshToken({});
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/places`,
     {

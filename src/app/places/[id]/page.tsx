@@ -1,43 +1,43 @@
-'use client';
+import { ReactNode } from 'react';
+import Link from 'next/link';
+import { Place } from '@/interfaces/place';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faEarthAmericas, faPhone, faMobile, faMapLocationDot, faAt, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
-import { ReactNode, useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
-import { AfterTokenRefreshContext, Context } from '@/interfaces/session';
-import { catchSession } from '@/services/session/catch-session';
-import fetchPlace from '@/actions/place/fetch-place';
+export default async function PlaceDetails({ params }: { params: Promise<{ id: string }> }): Promise<ReactNode> {
+  const { id } = await params;
 
-export default function Place(): Promise<ReactNode> {
-  const path = usePathname();
-  const id: string = path.split('/').slice(1)[1];
-  const [place, setPlace] = useState({});
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${id}`, { method: 'GET' });
 
-  useEffect(() => {
-    async function fetch() {
-      let result: Context | AfterTokenRefreshContext = await fetchPlace(id);
-      result = await catchSession(result);
+  if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
 
-      if (!result.ok) throw new Error(`${result.status} ${result.statusText}`);
-
-      setPlace(result.data);
-    }
-
-    fetch();
-  }, [])
+  const place: Place = await response.json();
 
   return (
-    <div className="card bg-base-100 w-96 shadow-sm">
-      <figure>
-        <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Shoes" />
-      </figure>
-      <div className="card-body">
-        <h2 className="card-title">{place?.name}</h2>
-        <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-        <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
+    <main className="flex justify-center mt-10">
+      <article className="card bg-base-100 w-96 shadow-sm">
+        <figure>
+          <img
+            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+            alt="Place primary picture" />
+        </figure>
+        <div className="card-body">
+          <h2 className="card-title">{place.name}</h2>
+          <p>{place.description}</p>
+          <p><FontAwesomeIcon icon={faAngleDoubleRight} className="inline mr-1.5 size-[1.2em]" />{place.information}</p>
+          <p className="flex items-center"><FontAwesomeIcon icon={faMapLocationDot} className="inline mr-1.5 size-[1.2em]" />{place.address}</p>
+          <p><FontAwesomeIcon icon={faMobile} className="inline mr-1.5 size-[1.2em]" />{place.mobile}</p>
+          <p><FontAwesomeIcon icon={faPhone} className="inline mr-1.5 size-[1.2em]" />{place.landline}</p>
+          <p><FontAwesomeIcon icon={faAt} className="inline mr-1.5 size-[1.2em]" />{place.email}</p>
+          <p><FontAwesomeIcon icon={faEarthAmericas} className="inline mr-1.5 size-[1.2em]" />{place.website}</p>
+          <p className="flex items-base"><FontAwesomeIcon icon={faFacebookF} className="inline mr-1.5 size-[1.2em]" />{place.facebook}</p>
+          <p><FontAwesomeIcon icon={faInstagram} className="inline mr-1.5 size-[1.2em]" />{place.instagram}</p>
+          <div className="card-actions justify-end">
+            <Link className="btn btn-primary" href={`/places/${id}/edit`}>Buy Now</Link>
+          </div>
         </div>
-      </div>
-    </div>
+      </article>
+    </main>
   );
 }
