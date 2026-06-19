@@ -34,7 +34,7 @@ export default async function PlaceDetails({ params }: { params: Promise<{ id: s
           <p className="flex items-base"><FontAwesomeIcon icon={faFacebookF} className="inline mr-1.5 size-[1.2em]" />{place.facebook}</p>
           <p><FontAwesomeIcon icon={faInstagram} className="inline mr-1.5 size-[1.2em]" />{place.instagram}</p>
           <div className="card-actions justify-end">
-            <Link className="btn btn-primary" href={`/places/${id}/edit`}>Buy Now</Link>
+            <Link className="btn btn-primary" href={`/places/${id}/edit`}>Edit</Link>
           </div>
         </div>
       </article>
