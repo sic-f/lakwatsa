@@ -1,15 +1,15 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import Link from 'next/link';
 import { Place } from '@/interfaces/place';
+import { deletePlace } from '@/actions/place/delete';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faEarthAmericas, faPhone, faMobile, faMapLocationDot, faAt, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
 export default async function PlaceDetails({ params }: { params: Promise<{ id: string }> }): Promise<ReactNode> {
   const { id } = await params;
-
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${id}`);
-
+  const removePlace = deletePlace.bind(null, null, id)
   if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
 
   const place: Place = await response.json();
@@ -35,6 +35,7 @@ export default async function PlaceDetails({ params }: { params: Promise<{ id: s
           <p><FontAwesomeIcon icon={faInstagram} className="inline mr-1.5 size-[1.2em]" />{place.instagram}</p>
           <div className="card-actions justify-end">
             <Link className="btn btn-primary" href={`/places/${id}/edit`}>Edit</Link>
+            <Link className="btn btn-error" href="#" onClick={removePlace}>Delete</Link>
           </div>
         </div>
       </article>
