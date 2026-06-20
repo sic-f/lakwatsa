@@ -35,6 +35,6 @@ export interface PlaceContext {
   status: number;
   statusText: string;
   url: string;
-  options: Options;
+  options: RequestInit;
   data?: PlaceForm;
 }

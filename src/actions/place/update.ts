@@ -8,8 +8,8 @@ import { catchSession } from "@/services/session/catch-session";
 import fetchPlace from './fetch-place';
 
 export async function update(state: PlaceForm, formData: FormData): Promise<PlaceForm> {
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${state.id}`;
-  const options = {
+  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${state.id}`;
+  const options: RequestInit = {
     method: 'PUT',
     headers: new Headers({
       'Content-Type': 'application/json',

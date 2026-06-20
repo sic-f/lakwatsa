@@ -11,11 +11,11 @@ export async function catchSession(context: PlaceContext): Promise<PlaceContext 
 
   await refreshToken({ clientCheck: false });
 
-  context.options.headers.set('Authorization', `Bearer ${await getToken()}`);
-
+  context.options.headers?.set('Authorization', `Bearer ${await getToken()}`);
+  
   const response = await fetch(context.url, context.options);
 
   const data = await response.json();
-
+  
   return { data: data, ok: response.ok, status: response.status, statusText: response.statusText };
 }

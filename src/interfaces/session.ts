@@ -18,9 +18,3 @@ export interface AfterTokenRefreshContext {
   status: number;
   statusText: string;
 }
-
-export interface Options {
-  method: string;
-  headers: [string[]];
-  body?: string;
-}
