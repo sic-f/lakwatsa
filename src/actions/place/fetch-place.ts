@@ -1,24 +1,16 @@
 'use server';
 
 import { HttpStatusCode } from "@/constants/http-status-codes";
-import { Options } from '@/interfaces/session';
 import { PlaceContext } from '@/interfaces/place';
 
-export default async function fetchPlace(id: string): Promise<PlaceContext> {
-  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${id}`;
-  const options: Options = { method: 'GET' };
-
+export async function fetchPlace(url: string, options: RequestInit): Promise<PlaceContext> {
   const response = await fetch(url, options);
 
   if (response.status === HttpStatusCode.Unauthorized) {
-    const result = { ok: response.ok, status: response.status, statusText: response.statusText, url: url, options: options }
-
-    return result;
+    return { ok: response.ok, status: response.status, statusText: response.statusText, url, options };
   }
 
   const data = await response.json();
 
-  const result = { data: data, ok: response.ok, status: response.status, statusText: response.statusText, url: url, options: options }
-
-  return result;
+  return { data: data, ok: response.ok, status: response.status, statusText: response.statusText, url: url, options: options };
 }

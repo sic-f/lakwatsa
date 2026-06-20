@@ -1,38 +1,37 @@
 'use server';
 
-import { redirect } from 'next/navigation';
-import { PlaceForm } from '@/interfaces/place';
+import { PlaceContext, PlaceForm } from '@/interfaces/place';
 import { getToken } from "@/services/session";
-import { refreshToken } from "@/services/session/refresh-token";
+import { catchSession } from '@/services/session/catch-session';
+import { fetchPlace } from './fetch-place';
+import { redirect } from 'next/navigation';
 
 export async function submit(state: PlaceForm, formData: FormData): Promise<PlaceForm> {
-  await refreshToken({});
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/places`,
-    {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${await getToken()}`,
-      }),
-      body: JSON.stringify({
-        name: formData.get('name'),
-        description: formData.get('description'),
-        information: formData.get('information'),
-        address: formData.get('address'),
-        mobile: formData.get('mobile'),
-        landline: formData.get('landline'),
-        email: formData.get('email'),
-        website: formData.get('website'),
-        facebook: formData.get('facebook'),
-        instagram: formData.get('instagram'),
-      }),
-    }
-  );
+  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/places`;
+  const options: RequestInit = {
+    method: 'POST',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${await getToken()}`,
+    }),
+    body: JSON.stringify({
+      name: formData.get('name'),
+      description: formData.get('description'),
+      information: formData.get('information'),
+      address: formData.get('address'),
+      mobile: formData.get('mobile'),
+      landline: formData.get('landline'),
+      email: formData.get('email'),
+      website: formData.get('website'),
+      facebook: formData.get('facebook'),
+      instagram: formData.get('instagram'),
+    }),
+  };
 
+  let response: PlaceContext  = await fetchPlace(url, options);
+  response = await catchSession(response);
+  
   if (!response.ok) {
-    const data = await response.json();
-    
     return {
       name: formData.get('name')?.toString(),
       description: formData.get('description')?.toString(),
@@ -44,11 +43,9 @@ export async function submit(state: PlaceForm, formData: FormData): Promise<Plac
       website: formData.get('website')?.toString(),
       facebook: formData.get('facebook')?.toString(),
       instagram: formData.get('instagram')?.toString(),
-      errors: data.errors,
+      errors: response.data?.errors,
     };
   }
 
-  const data = await response.json();
-  
-  redirect(`/places/${data.place.id}`);
+  redirect(`/places/${response.data?.place?.id}`);
 }
