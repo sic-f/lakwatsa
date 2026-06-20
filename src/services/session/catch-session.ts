@@ -9,7 +9,7 @@ import { refreshToken } from './refresh-token';
 export async function catchSession(context: PlaceContext): Promise<PlaceContext | AfterTokenRefreshContext> {
   if (context.status !== HttpStatusCode.Unauthorized) return context;
 
-  await refreshToken({ clientCheck: false });
+  await refreshToken();
 
   context.options.headers?.set('Authorization', `Bearer ${await getToken()}`);
   
