@@ -11,10 +11,3 @@ export interface Token {
   typ: string;
   nbf: number;
 }
-
-export interface AfterTokenRefreshContext {
-  data: {};
-  ok: boolean;
-  status: number;
-  statusText: string;
-}

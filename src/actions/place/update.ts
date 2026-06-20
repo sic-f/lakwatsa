@@ -2,7 +2,6 @@
 
 import { redirect } from 'next/navigation';
 import { PlaceContext, PlaceForm } from "@/interfaces/place";
-import { AfterTokenRefreshContext } from "@/interfaces/session";
 import { getToken } from '@/services/session';
 import { catchSession } from "@/services/session/catch-session";
 import fetchPlace from './fetch-place';
@@ -29,7 +28,7 @@ export async function update(state: PlaceForm, formData: FormData): Promise<Plac
     }),
   };
 
-  let response: PlaceContext | AfterTokenRefreshContext = await fetchPlace(url, options);
+  let response: PlaceContext = await fetchPlace(url, options);
   response = await catchSession(response);
 
   if (!response.ok) {
@@ -45,7 +44,7 @@ export async function update(state: PlaceForm, formData: FormData): Promise<Plac
       website: formData.get('website')?.toString(),
       facebook: formData.get('facebook')?.toString(),
       instagram: formData.get('instagram')?.toString(),
-      errors: response.data.errors,
+      errors: response.data?.errors,
     }
   }
 

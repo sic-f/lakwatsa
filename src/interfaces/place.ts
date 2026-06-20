@@ -1,12 +1,11 @@
 import { Error } from '@/interfaces/error';
-import { Options } from './session';
 
 export interface PlaceForm {
   id?: string;
   name: string | undefined;
   description: string | undefined;
   information: string | undefined;
-  address: string | undefined ;
+  address: string | undefined;
   mobile: string | undefined;
   landline: string | undefined;
   email: string | undefined;
@@ -15,9 +14,17 @@ export interface PlaceForm {
   instagram: string | undefined;
   errors?: Error;
   message?: string;
+  place?: Place;
+}
+
+export interface PlaceResponse {
+  errors?: Error;
+  message?: string;
+  place?: Place;
 }
 
 export interface Place {
+  id: string;
   name: string;
   description: string;
   information: string;
@@ -34,7 +41,7 @@ export interface PlaceContext {
   ok: boolean;
   status: number;
   statusText: string;
-  url: string;
-  options: RequestInit;
-  data?: PlaceForm;
+  url?: string;
+  options?: RequestInit;
+  data?: PlaceResponse;
 }
