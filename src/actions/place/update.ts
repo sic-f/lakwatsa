@@ -1,10 +1,10 @@
 'use server';
 
-import { redirect } from 'next/navigation';
 import { PlaceContext, PlaceForm } from "@/interfaces/place";
 import { getToken } from '@/services/session';
 import { catchSession } from "@/services/session/catch-session";
-import fetchPlace from './fetch-place';
+import { fetchPlace } from './fetch-place';
+import { redirect } from 'next/navigation';
 
 export async function update(state: PlaceForm, formData: FormData): Promise<PlaceForm> {
   const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${state.id}`;

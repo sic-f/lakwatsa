@@ -3,7 +3,7 @@
 import { PlaceContext, PlaceForm } from '@/interfaces/place';
 import { getToken } from "@/services/session";
 import { catchSession } from '@/services/session/catch-session';
-import fetchPlace from './fetch-place';
+import { fetchPlace } from './fetch-place';
 import { redirect } from 'next/navigation';
 
 export async function submit(state: PlaceForm, formData: FormData): Promise<PlaceForm> {
