@@ -38,10 +38,7 @@ export interface Place {
 }
 
 export interface PlaceContext {
-  ok: boolean;
-  status: number;
-  statusText: string;
   url?: string;
   options?: RequestInit;
-  data?: PlaceResponse;
+  response: Response;
 }
