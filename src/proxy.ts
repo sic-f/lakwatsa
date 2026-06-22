@@ -12,6 +12,10 @@ export const proxy = async (req: NextRequest) => {
  
   const session = (await cookies()).get('session')?.value;
  
+  if ((path.startsWith('/places') && path.endsWith('/edit')) && isEmpty(session)) {
+    return NextResponse.redirect(new URL('/login', req.nextUrl));
+  }
+
   if (isProtectedRoute && isEmpty(session)) {
     return NextResponse.redirect(new URL('/login', req.nextUrl))
   }
