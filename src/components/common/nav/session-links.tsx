@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { hasSession } from "@/services/session";
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
+import { hasSession } from '@/services/session';
+import Link from 'next/link';
 
 export default async function SessionLinks(): Promise<ReactNode | undefined> {
   if (await hasSession()) return;

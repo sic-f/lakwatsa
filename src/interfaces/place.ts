@@ -35,13 +35,11 @@ export interface Place {
   website: string;
   facebook: string;
   instagram: string;
+  broId: string;
 }
 
 export interface PlaceContext {
-  ok: boolean;
-  status: number;
-  statusText: string;
   url?: string;
   options?: RequestInit;
-  data?: PlaceResponse;
+  response: Response;
 }

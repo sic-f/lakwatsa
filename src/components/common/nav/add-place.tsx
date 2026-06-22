@@ -1,8 +1,8 @@
-import { ReactNode } from "react";
-import Link from "next/link";
-import { isEmptySession } from "@/services/session";
-import { faBuilding } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ReactNode } from 'react';
+import { isEmptySession } from '@/services/session';
+import { faBuilding } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
 
 export default async function AddPlace(): Promise<ReactNode | undefined> {
   if (await isEmptySession()) return;

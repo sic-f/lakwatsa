@@ -1,20 +1,12 @@
 'use server';
 
 import { HttpStatusCode } from '@/constants/http-status-codes';
-import { PlaceContext } from '@/interfaces/place';
-import { getToken } from '../session';
 import { refreshToken } from './refresh-token';
 
-export async function catchSession(context: PlaceContext): Promise<PlaceContext> {
-  if (context.status !== HttpStatusCode.Unauthorized) return context;
+export async function catchSession(response: Response, options: Function): Promise<Response> {
+  if (response.status !== HttpStatusCode.Unauthorized) return response;
 
   await refreshToken();
 
-  context.options!.headers?.set('Authorization', `Bearer ${await getToken()}`);
-  
-  const response = await fetch(context.url!, context.options);
-
-  const data = await response.json();
-  
-  return { data: data, ok: response.ok, status: response.status, statusText: response.statusText };
+  return await fetch(response.url, await options());
 }

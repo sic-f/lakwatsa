@@ -1,18 +1,23 @@
 import { ReactNode } from 'react';
-import Link from 'next/link';
+import DeletePlaceButton from './delete-place-button';
 import { Place } from '@/interfaces/place';
+import { deletePlace } from '@/actions/place/delete';
+import { getAccount } from '@/services/identity';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faEarthAmericas, faPhone, faMobile, faMapLocationDot, faAt, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 
 export default async function PlaceDetails({ params }: { params: Promise<{ id: string }> }): Promise<ReactNode> {
   const { id } = await params;
-
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${id}`);
-
   if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
 
   const place: Place = await response.json();
+
+  async function isPlaceOwner() {
+    return ((await getAccount()).id === place.broId)
+  }
 
   return (
     <main className="flex justify-center mt-10">
@@ -34,7 +39,8 @@ export default async function PlaceDetails({ params }: { params: Promise<{ id: s
           <p className="flex items-base"><FontAwesomeIcon icon={faFacebookF} className="inline mr-1.5 size-[1.2em]" />{place.facebook}</p>
           <p><FontAwesomeIcon icon={faInstagram} className="inline mr-1.5 size-[1.2em]" />{place.instagram}</p>
           <div className="card-actions justify-end">
-            <Link className="btn btn-primary" href={`/places/${id}/edit`}>Edit</Link>
+            {await isPlaceOwner() && <Link className="btn btn-primary" href={`/places/${id}/edit`}>Edit</Link>}
+            {await isPlaceOwner() && <DeletePlaceButton id={id} onClick={deletePlace} />}
           </div>
         </div>
       </article>
