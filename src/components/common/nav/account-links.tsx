@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
-import Link from 'next/link';
 import { isEmptySession } from '@/services/session';
 import { logout } from '@/actions/account/authentication';
+import Link from 'next/link';
 
 export default async function AccountLinks(): Promise<ReactNode | undefined> {
   if (await isEmptySession()) return;
