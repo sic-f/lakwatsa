@@ -35,6 +35,7 @@ export interface Place {
   website: string;
   facebook: string;
   instagram: string;
+  broId: string;
 }
 
 export interface PlaceContext {
