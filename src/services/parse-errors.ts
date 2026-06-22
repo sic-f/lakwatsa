@@ -1,7 +1,7 @@
 'use server';
 
 import { Error as AuthError } from '@/interfaces/account';
-import { AccountError as FieldError } from '@/constants/account-error';
+import { AccountError as FieldError } from '@/constants/field-errors';
 
 export async function parseErrors(errors: Object): Promise<AuthError> {
   const keys = Object.keys(errors);

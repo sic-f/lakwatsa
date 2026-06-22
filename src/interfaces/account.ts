@@ -1,6 +1,4 @@
-export interface Error {
-  [key: string]: string[];
-}
+import { Error } from '@/interfaces/error';
 
 export interface DecodedToken {
   sub: string;
@@ -18,7 +16,7 @@ export interface AccountProfile {
 
 export interface AccountProfileForm {
   id: string;
-  email: string;
+  email: string | undefined;
   firstName: string | undefined;
   lastName: string | undefined;
   errors?: Error;

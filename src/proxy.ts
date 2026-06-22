@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isEmpty } from 'lodash';
  
-const protectedRoutes = ['/account']
+const protectedRoutes = ['/account', '/places/submit']
 const publicRoutes = ['/login', '/register']
  
 export const proxy = async (req: NextRequest) => {
@@ -12,6 +12,10 @@ export const proxy = async (req: NextRequest) => {
  
   const session = (await cookies()).get('session')?.value;
  
+  if ((path.startsWith('/places') && path.endsWith('/edit')) && isEmpty(session)) {
+    return NextResponse.redirect(new URL('/login', req.nextUrl));
+  }
+
   if (isProtectedRoute && isEmpty(session)) {
     return NextResponse.redirect(new URL('/login', req.nextUrl))
   }
@@ -20,7 +24,7 @@ export const proxy = async (req: NextRequest) => {
   if (
     isPublicRoute &&
     !isEmpty(session) &&
-    !req.nextUrl.pathname.startsWith('/profile')
+    !req.nextUrl.pathname.startsWith('/account')
   ) {
     return NextResponse.redirect(new URL('/', req.nextUrl))
   }

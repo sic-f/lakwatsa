@@ -2,7 +2,7 @@
 
 import { useActionState } from 'react';
 import { AccountProfile, AccountProfileForm } from '@/interfaces/account';
-import { AccountError } from '@/constants/account-error';
+import { AccountError } from '@/constants/field-errors';
 import { updateAccount } from '@/actions/account/update';
 import { isEmpty } from 'lodash';
 
@@ -51,7 +51,7 @@ const Form = ({ accountData }: { accountData: AccountProfile }) => {
 
   return (
     <>
-      <form action={action} className="flex justify-center items-center">
+      <form action={action} className="flex justify-center">
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
           {renderHeader()}
           {renderMessage()}

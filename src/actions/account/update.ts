@@ -1,6 +1,7 @@
 'use server';
 
-import { AccountProfileForm, Error } from '@/interfaces/account';
+import { Error } from '@/interfaces/error';
+import { AccountProfileForm } from '@/interfaces/account';
 import { getAccount } from '@/services/identity';
 import { getToken, setSession } from '@/services/session';
 import { parseErrors } from '@/services/parse-errors';
@@ -30,7 +31,7 @@ export async function updateAccount(state: AccountProfileForm, formData: FormDat
 
     return {
       id: state.id,
-      email: formData.get('email')?.toString()!,
+      email: formData.get('email')?.toString(),
       firstName: formData.get('firstName')?.toString(),
       lastName: formData.get('lastName')?.toString(),
       errors: errors,
