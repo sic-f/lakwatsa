@@ -3,6 +3,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import PlaceCard from "@/app/places/[id]/place-card";
 import { Place } from '@/interfaces/place';
+import { fetchMorePlaces } from '@/actions/place/fetch-more-places';
 import { useInView } from 'react-intersection-observer';
 
 const NUMBER_OF_PLACES_TO_FETCH = 10
@@ -15,11 +16,14 @@ export default function Places({ places: initialPlaces, broId }: { places: Place
   useEffect(() => {
     async function fetchPlaces() {
       if (inView) {
-        await loadMorePlaces()
+        const morePlaces: Place[] = await fetchMorePlaces(offset, NUMBER_OF_PLACES_TO_FETCH);
+
+        setPlaces(places => [...places, ...morePlaces]);
+        setOffset(offset => offset + NUMBER_OF_PLACES_TO_FETCH);
       }
 
       fetchPlaces();
-    }, [inView])
+    }}, [inView])
 
   return (
     <div>
