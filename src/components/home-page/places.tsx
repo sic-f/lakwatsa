@@ -5,32 +5,36 @@ import PlaceCard from "@/app/places/[id]/place-card";
 import { Place } from '@/interfaces/place';
 import { fetchMorePlaces } from '@/actions/place/fetch-more-places';
 import { useInView } from 'react-intersection-observer';
+import { isEmpty } from 'lodash';
+import dayjs from 'dayjs';
 
-const NUMBER_OF_PLACES_TO_FETCH = 10
+const NUMBER_OF_PLACES_TO_FETCH = 5;
 
 export default function Places({ places: initialPlaces, broId }: { places: Place[], broId: string }): ReactNode {
-  const [offset, setOffset] = useState(NUMBER_OF_PLACES_TO_FETCH)
+  const [offset, setOffset] = useState(initialPlaces.at(-1)!.createdAt)
   const [places, setPlaces] = useState<Place[]>(initialPlaces);
   const { ref, inView } = useInView();
 
   useEffect(() => {
     async function fetchPlaces() {
       if (inView) {
-        const morePlaces: Place[] = await fetchMorePlaces(offset, NUMBER_OF_PLACES_TO_FETCH);
+        const morePlaces: Place[] = await fetchMorePlaces(dayjs(offset).toISOString(), NUMBER_OF_PLACES_TO_FETCH);
 
         setPlaces(places => [...places, ...morePlaces]);
-        setOffset(offset => offset + NUMBER_OF_PLACES_TO_FETCH);
-      }
 
-      fetchPlaces();
-    }}, [inView])
+        if (!isEmpty(morePlaces)) {
+          setOffset(morePlaces?.at(-1)!.createdAt);
+        }
+      }
+    }
+    
+    fetchPlaces();
+  }, [inView])
 
   return (
-    <div>
+    <>
       {places.map(place => <PlaceCard place={place} broId={broId} key={place.id} />)}
-      <div ref={ref}>
-        Loading...
-      </div>
-    </div>
+      <div ref={ref}></div>
+    </>
   );
 }

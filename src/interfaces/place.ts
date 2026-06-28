@@ -36,6 +36,7 @@ export interface Place {
   facebook: string;
   instagram: string;
   broId: string;
+  createdAt: Date;
 }
 
 export interface PlaceContext {
