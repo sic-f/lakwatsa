@@ -2,16 +2,15 @@ import { ReactNode } from 'react';
 import Link from 'next/link';
 import DeletePlaceButton from './delete-place-button';
 import { Place } from '@/interfaces/place';
-import { getAccount } from '@/services/identity';
 import { deletePlace } from '@/actions/place/delete';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faEarthAmericas, faPhone, faMobile, faMapLocationDot, faAt, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
 
-export default async function PlaceCard({ place }: { place: Place }): Promise<ReactNode> {
-  async function isPlaceOwner() {
-    return ((await getAccount()).id === place.broId)
+export default function PlaceCard({ place, broId }: { place: Place, broId: string }): ReactNode {
+  function isPlaceOwner() {
+    return (broId === place.broId)
   }
 
   return (
@@ -33,8 +32,8 @@ export default async function PlaceCard({ place }: { place: Place }): Promise<Re
         <p className="flex items-base"><FontAwesomeIcon icon={faFacebookF} className="inline mr-1.5 size-[1.2em]" />{place.facebook}</p>
         <p><FontAwesomeIcon icon={faInstagram} className="inline mr-1.5 size-[1.2em]" />{place.instagram}</p>
         <div className="card-actions justify-end">
-          {await isPlaceOwner() && <Link className="btn btn-primary" href={`/places/${place.id}/edit`}>Edit</Link>}
-          {await isPlaceOwner() && <DeletePlaceButton id={place.id} onClick={deletePlace} />}
+          {isPlaceOwner() && <Link className="btn btn-primary" href={`/places/${place.id}/edit`}>Edit</Link>}
+          {isPlaceOwner() && <DeletePlaceButton id={place.id} onClick={deletePlace} />}
         </div>
       </div>
     </article>
