@@ -1,18 +1,29 @@
 import { ReactNode } from 'react';
-import { isEmptySession } from '@/services/session';
-import { logout } from '@/actions/account/authentication';
 import Link from 'next/link';
+import Image from 'next/image';
+import { AccountProfile } from '@/constants/account-profile';
+import { isEmptySession } from '@/services/session';
+import { getAccount } from '@/services/identity';
+import { logout } from '@/actions/account/authentication';
 
 export default async function AccountLinks(): Promise<ReactNode | undefined> {
   if (await isEmptySession()) return;
+
+  async function getAvatar() {
+    const avatar = (await getAccount()).avatar;
+    return avatar === "" ? AccountProfile.BlankAvatar : avatar;
+  }
 
   return (
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-          <img
+          <Image
             alt="Account related dropdown links"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            src={await getAvatar()}
+            width={64}
+            height={64}
+          />
         </div>
       </div>
       <ul
