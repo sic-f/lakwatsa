@@ -1,4 +1,3 @@
-import FlashMessage from './flash-message';
 import FieldError from '@/components/common/field-error';
 import { PlaceError } from '@/constants/field-errors';
 import { PlaceForm } from '@/interfaces/place';
@@ -9,7 +8,7 @@ export default function Form({ place, action }: { place: PlaceForm, action: (pay
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
         <legend className="fieldset-legend">Submit a place</legend>
         <label className="label">Name</label>
-        <input type="text" className="input validator" name="name" defaultValue={place.name} placeholder="Name of place, establishment, store, etc." />
+        <input type="text" className="input" name="name" defaultValue={place.name} placeholder="Name of place, establishment, store, etc." />
         <FieldError errors={place.errors} field={PlaceError.Name} />
 
         <label className="label">Description</label>
@@ -21,7 +20,7 @@ export default function Form({ place, action }: { place: PlaceForm, action: (pay
         <FieldError errors={place.errors} field={PlaceError.Information} />
 
         <label className="label">Address</label>
-        <input type="text" className="input validator" name="address" defaultValue={place.address} placeholder="Address" />
+        <input type="text" className="input" name="address" defaultValue={place.address} placeholder="Address" />
         <FieldError errors={place.errors} field={PlaceError.Address} />
 
         <label className="label">Mobile</label>
@@ -47,6 +46,9 @@ export default function Form({ place, action }: { place: PlaceForm, action: (pay
         <label className="label">Instagram</label>
         <input type="text" className="input" name="instagram" defaultValue={place.instagram} placeholder="Instagram handle e.g. @yourock" />
         <FieldError errors={place.errors} field={PlaceError.Instagram} />
+
+        <label className="label">Picture</label>
+        <input type="file" className="file-input file-input-info" name="picture" />
 
         <button className="btn btn-neutral mt-4">Submit</button>
       </fieldset>
