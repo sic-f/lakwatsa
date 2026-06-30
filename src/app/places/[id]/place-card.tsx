@@ -20,7 +20,7 @@ export default function PlaceCard({ place, broId }: { place: Place, broId: strin
           alt="Place primary picture" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{place.name}</h2>
+        <h2 className="card-title"><Link href={`/places/${place.id}`}>{place.name}</Link></h2>
         <p>{place.description}</p>
         <p><FontAwesomeIcon icon={faAngleDoubleRight} className="inline mr-1.5 size-[1.2em]" />{place.information}</p>
         <p className="flex items-center"><FontAwesomeIcon icon={faMapLocationDot} className="inline mr-1.5 size-[1.2em]" />{place.address}</p>
