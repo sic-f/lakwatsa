@@ -41,7 +41,7 @@ export default function Avatar({ avatar }: { avatar: string }) {
           {account?.errors && <p className="text-red-400">{account?.errors}</p>}
           <figure className="mb-2">
             <Image
-              src={`${avatar}`}
+              src={avatar}
               width={400}
               height={300}
               alt='avatar' />
