@@ -1,9 +1,11 @@
 import { ReactNode } from 'react';
 import PlaceCard from './place-card';
 import { Place } from '@/interfaces/place';
+import { getAccount } from '@/services/identity';
 
 export default async function PlaceDetails({ params }: { params: Promise<{ id: string }> }): Promise<ReactNode> {
   const { id } = await params;
+  const broId: string = (await getAccount()).id;
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${id}`);
   if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
 
@@ -11,7 +13,7 @@ export default async function PlaceDetails({ params }: { params: Promise<{ id: s
 
   return (
     <main className="flex justify-center mt-10">
-      <PlaceCard place={place} />
+      <PlaceCard place={place} broId={broId} />
     </main>
   );
 }

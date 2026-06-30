@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faEarthAmericas, faPhone, faMobile, faMapLocationDot, faAt, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
-
 export default function PlaceCard({ place, broId }: { place: Place, broId: string }): ReactNode {
   function isPlaceOwner() {
     return (broId === place.broId)
