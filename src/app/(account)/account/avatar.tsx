@@ -42,8 +42,9 @@ export default function Avatar({ avatar }: { avatar: string }) {
           <figure className="mb-2">
             <Image
               src={avatar}
-              width={400}
-              height={300}
+              width={304}
+              height={171}
+              loading="eager"
               alt='avatar' />
           </figure>
           <section className="flex">
