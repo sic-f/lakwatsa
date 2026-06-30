@@ -9,7 +9,7 @@ export default async function Profile() {
   const account: AccountProfile = await getAccount();
 
   function avatarImage(): string {
-    return account.avatar === undefined ? Account.BlankAvatar : account.avatar!;
+    return account.avatar === '' ? Account.BlankAvatar : account.avatar!;
   }
   
   return (
