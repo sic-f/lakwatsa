@@ -12,7 +12,7 @@ export default function Form({ placeDetails }: { placeDetails: PlaceForm }): Rea
   return (
     <form action={action} className="flex flex-col justify-center items-center md:my-8">
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-        <legend className="fieldset-legend">Submit a place</legend>
+        <legend className="fieldset-legend">Update details</legend>
         <p className="text-success">{place.message}</p>
         <label className="label">Name</label>
         <input type="text" className="input validator" name="name" defaultValue={place.name} placeholder="Name of place, establishment, store, etc." />
