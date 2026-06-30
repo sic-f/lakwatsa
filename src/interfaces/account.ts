@@ -5,6 +5,7 @@ export interface DecodedToken {
   email: string;
   given_name: string;
   family_name: string;
+  picture: string;
 }
 
 export interface AccountProfile {
@@ -12,6 +13,7 @@ export interface AccountProfile {
   email: string;
   firstName: string;
   lastName: string;
+  avatar: string;
 }
 
 export interface AccountProfileForm {

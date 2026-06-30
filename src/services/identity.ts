@@ -15,6 +15,7 @@ export const getAccount = async (): Promise<AccountProfile> => {
       email: '',
       firstName: '',
       lastName: '',
+      avatar: '',
     };
   }
 
@@ -26,6 +27,7 @@ export const getAccount = async (): Promise<AccountProfile> => {
     email: identityData.email,
     firstName: identityData.given_name,
     lastName: identityData.family_name,
+    avatar: identityData.picture,
   };
 }
 
