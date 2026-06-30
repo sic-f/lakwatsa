@@ -11,7 +11,7 @@ export default async function AccountLinks(): Promise<ReactNode | undefined> {
 
   async function getAvatar() {
     const avatar = (await getAccount()).avatar;
-    return avatar === "" ? AccountProfile.BlankAvatar : avatar;
+    return avatar === "" ? AccountProfile.BlankThumb : avatar;
   }
 
   return (
@@ -21,8 +21,8 @@ export default async function AccountLinks(): Promise<ReactNode | undefined> {
           <Image
             alt="Account related dropdown links"
             src={await getAvatar()}
-            width={64}
-            height={64}
+            width={48}
+            height={48}
           />
         </div>
       </div>
