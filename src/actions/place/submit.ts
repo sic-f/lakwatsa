@@ -36,7 +36,7 @@ export async function submit(_: PlaceForm, formData: FormData): Promise<PlaceFor
     };
   }
 
-  const { id } = (await response.json()).place;
+  const { id } = await response.json();
 
   redirect(`/places/${id}`);
 }
