@@ -49,6 +49,7 @@ export default function Form({ place, action }: { place: PlaceForm, action: (pay
 
         <label className="label">Picture</label>
         <input type="file" className="file-input file-input-info" name="picture" />
+        <FieldError errors={place.errors} field={PlaceError.Picture} />
 
         <button className="btn btn-neutral mt-4">Submit</button>
       </fieldset>

@@ -18,4 +18,5 @@ export const PlaceError = {
   Website: 'Website',
   Facebook: 'Facebook',
   Instagram: 'Instagram',
+  Picture: 'picture',
 };
