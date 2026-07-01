@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import DeletePlaceButton from './delete-place-button';
 import { Place } from '@/interfaces/place';
 import { deletePlace } from '@/actions/place/delete';
@@ -11,13 +12,16 @@ export default function PlaceCard({ place, broId }: { place: Place, broId: strin
   function isPlaceOwner() {
     return (broId === place.broId)
   }
-
+  
   return (
     <article className="card bg-base-100 w-96 shadow-sm">
       <figure>
-        <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Place primary picture" />
+        <Image
+          src={place.picture?.normal ?? '/images/blank-place.webp'}
+          width={640}
+          height={360}
+          alt="Place primary picture"
+        />
       </figure>
       <div className="card-body">
         <h2 className="card-title"><Link href={`/places/${place.id}`}>{place.name}</Link></h2>
