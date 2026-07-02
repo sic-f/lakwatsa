@@ -36,8 +36,6 @@ export default function PlaceCard({ place, broId }: { place: Place, broId: strin
         <p className="flex items-base"><FontAwesomeIcon icon={faFacebookF} className="inline mr-1.5 size-[1.2em]" />{place.facebook}</p>
         <p><FontAwesomeIcon icon={faInstagram} className="inline mr-1.5 size-[1.2em]" />{place.instagram}</p>
         <div className="card-actions justify-end">
-          {isPlaceOwner() && <Link className="btn btn-primary" href={`/places/${place.id}/edit`}>Edit</Link>}
-          {isPlaceOwner() && <DeletePlaceButton id={place.id} onClick={deletePlace} />}
         </div>
       </div>
     </article>

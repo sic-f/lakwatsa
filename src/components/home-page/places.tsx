@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
-import PlaceCard from "@/app/places/[id]/place-card";
+import PlaceCard from '@/app/places/[id]/place-card';
 import { Place } from '@/interfaces/place';
 import { fetchMorePlaces } from '@/actions/place/fetch-more-places';
 import { useInView } from 'react-intersection-observer';
@@ -10,9 +10,9 @@ import dayjs from 'dayjs';
 
 const NUMBER_OF_PLACES_TO_FETCH = 5;
 
-export default function Places({ places: initialPlaces, broId }: { places: Place[], broId: string }): ReactNode {
-  const [offset, setOffset] = useState(initialPlaces.at(-1)!.createdAt)
+export default function Places({ initialPlaces, broId }: { initialPlaces: Place[], broId: string }): ReactNode {
   const [places, setPlaces] = useState<Place[]>(initialPlaces);
+  const [offset, setOffset] = useState(initialPlaces.at(-1)!.createdAt)
   const [fetchedAllPlaces, setFetchedAllPlaces] = useState<boolean>(false);
   const { ref, inView } = useInView();
 
@@ -20,17 +20,17 @@ export default function Places({ places: initialPlaces, broId }: { places: Place
     if (fetchedAllPlaces) return;
 
     async function fetchPlaces() {
-      if (inView) {
-        const morePlaces: Place[] = await fetchMorePlaces(dayjs(offset).toISOString(), NUMBER_OF_PLACES_TO_FETCH);
+      if (!inView) return;
 
-        if (isEmpty(morePlaces)) {
-          setFetchedAllPlaces(true);
-          return;
-        }
+      const morePlaces: Place[] = await fetchMorePlaces(dayjs(offset).toISOString(), NUMBER_OF_PLACES_TO_FETCH);
 
-        setPlaces(places => [...places, ...morePlaces]);
-        setOffset(morePlaces.at(-1)!.createdAt);
+      if (isEmpty(morePlaces)) {
+        setFetchedAllPlaces(true);
+        return;
       }
+
+      setPlaces(places => [...places, ...morePlaces]);
+      setOffset(morePlaces.at(-1)!.createdAt);
     }
 
     fetchPlaces();
@@ -39,7 +39,7 @@ export default function Places({ places: initialPlaces, broId }: { places: Place
   return (
     <>
       {places.map(place => <PlaceCard place={place} broId={broId} key={place.id} />)}
-      <div ref={ref}></div>
+      {!isEmpty(places) && <div ref={ref}></div>}
     </>
   );
 }

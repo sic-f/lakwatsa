@@ -17,6 +17,6 @@ export async function deletePlace(id: string): Promise<void> {
   response = await catchSession(response, options);
 
   if (!response.ok) throw new Error(`${response.status} ${response.statusText} ${await response.text()}`);
-
+  
   redirect('/');
 }

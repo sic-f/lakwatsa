@@ -14,11 +14,9 @@ export default async function Home() {
   const places: Place[] = await response.json();
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-center">
-        <div className="flex flex-col items-center gap-18 text-center sm:items-start sm:text-left">
-          {isEmpty(places) ? <EmptyPlacesText /> : <Places places={places} broId={(await getAccount()).id} />}
-        </div>
+    <div className="bg-zinc-50 font-sans dark:bg-black">
+      <main className="flex flex-col md:flex-row md:flex-wrap md:justify-center max-lg:items-center gap-12 pt-8 bg-white dark:bg-black">
+        {isEmpty(places) ? <EmptyPlacesText /> : <Places initialPlaces={places} broId={(await getAccount()).id} />}
       </main>
     </div>
   );
