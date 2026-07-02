@@ -7,7 +7,7 @@ export default async function PlaceDetails({ params }: { params: Promise<{ id: s
   const { id } = await params;
   const broId: string = (await getAccount()).id;
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${id}`);
-  if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+  if (!response.ok) throw new Error(`${response.status} ${response.statusText} ${await response.text()}`);
 
   const place: Place = await response.json();
 
