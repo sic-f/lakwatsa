@@ -11,7 +11,7 @@ export async function submit(_: PlaceForm, formData: FormData): Promise<PlaceFor
     return {
       method: 'POST',
       headers: new Headers({ Authorization: `Bearer ${await getToken()}` }),
-      body: formData,
+      body: getFormData(formData),
     }
   }
 
@@ -39,4 +39,10 @@ export async function submit(_: PlaceForm, formData: FormData): Promise<PlaceFor
   const { id } = await response.json();
 
   redirect(`/places/${id}`);
+}
+
+function getFormData(formData: FormData) {
+  if ((formData.get('picture') as File).size === 0) formData.delete('picture');
+
+  return formData;
 }
