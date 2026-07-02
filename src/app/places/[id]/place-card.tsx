@@ -20,6 +20,7 @@ export default function PlaceCard({ place, broId }: { place: Place, broId: strin
           src={place.picture?.normal ?? '/images/blank-place.webp'}
           width={640}
           height={360}
+          loading="eager"
           alt="Place primary picture"
         />
       </figure>
