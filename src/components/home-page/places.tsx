@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
-import PlaceCard from '@/app/places/[id]/place-card';
+import PlaceCard from '@/components/home-page/place-card';
 import { Place } from '@/interfaces/place';
 import { fetchMorePlaces } from '@/actions/place/fetch-more-places';
 import { useInView } from 'react-intersection-observer';
