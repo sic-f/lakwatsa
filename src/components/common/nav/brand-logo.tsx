@@ -8,7 +8,8 @@ export default function BrandLogo(): ReactNode {
       <Link href="/" className="ml-3 text-primary-content text-lg">
         <Image
           src="/images/gala.png"
-          width={72} height={48}
+          width={72}
+          height={48}
           alt="Brand logo"
           className="inline mr-2"
         />
