@@ -1,6 +1,7 @@
 'use server';
 
 import { PlaceForm } from "@/interfaces/place";
+import { getFormData } from "@/services/form-data";
 import { getToken } from '@/services/session';
 import { catchSession } from "@/services/session/catch-session";
 import { redirect } from 'next/navigation';
@@ -10,22 +11,8 @@ export async function update(state: PlaceForm, formData: FormData): Promise<Plac
   async function options(): Promise<RequestInit> {
     return {
       method: 'PUT',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${await getToken()}`
-      }),
-      body: JSON.stringify({
-        name: formData.get('name'),
-        description: formData.get('description'),
-        information: formData.get('information'),
-        address: formData.get('address'),
-        mobile: formData.get('mobile'),
-        landline: formData.get('landline'),
-        email: formData.get('email'),
-        website: formData.get('website'),
-        facebook: formData.get('facebook'),
-        instagram: formData.get('instagram'),
-      }),
+      headers: new Headers({ Authorization: `Bearer ${await getToken()}` }),
+      body: await getFormData(formData),
     }
   }
 

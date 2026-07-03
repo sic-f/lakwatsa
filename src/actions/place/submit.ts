@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { PlaceForm } from '@/interfaces/place';
 import { getToken } from "@/services/session";
 import { catchSession } from '@/services/session/catch-session';
+import { getFormData } from '@/services/form-data';
 
 export async function submit(_: PlaceForm, formData: FormData): Promise<PlaceForm> {
   const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/places`;
@@ -11,7 +12,7 @@ export async function submit(_: PlaceForm, formData: FormData): Promise<PlaceFor
     return {
       method: 'POST',
       headers: new Headers({ Authorization: `Bearer ${await getToken()}` }),
-      body: getFormData(formData),
+      body: await getFormData(formData),
     }
   }
 
@@ -39,10 +40,4 @@ export async function submit(_: PlaceForm, formData: FormData): Promise<PlaceFor
   const { id } = await response.json();
 
   redirect(`/places/${id}`);
-}
-
-function getFormData(formData: FormData) {
-  if ((formData.get('picture') as File).size === 0) formData.delete('picture');
-
-  return formData;
 }
