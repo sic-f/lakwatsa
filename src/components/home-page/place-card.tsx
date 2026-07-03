@@ -23,8 +23,8 @@ export default function PlaceCard({ place, broId }: { place: Place, broId: strin
       </figure>
       <div className="card-body">
         <h2 className="card-title"><Link href={`/places/${place.id}`}>{place.name}</Link></h2>
-        <p className="text-secondary">{place.description}</p>
-        <p className="flex items-center text-accent">
+        <p className="text-secondary cursor-default">{place.description}</p>
+        <p className="flex items-center text-accent cursor-default">
           <FontAwesomeIcon icon={faMapLocationDot} className="inline mr-1.5 size-[1.2em]" />
           {place.address}
         </p>
