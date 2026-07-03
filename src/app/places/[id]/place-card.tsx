@@ -1,12 +1,11 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import DeletePlaceButton from './delete-place-button';
 import { Place } from '@/interfaces/place';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faAngleDoubleRight, faAt, faEarthAmericas, faMapLocationDot, faMobile, faPhone } from '@fortawesome/free-solid-svg-icons';
-import DeletePlaceButton from './delete-place-button';
-import { deletePlace } from '@/actions/place/delete';
 
 export default function PlaceCard({ place, broId }: { place: Place, broId: string }): ReactNode {
   function isPlaceOwner() {
@@ -47,6 +46,5 @@ export default function PlaceCard({ place, broId }: { place: Place, broId: strin
         </div>
       </div>
     </article>
-
   );
 }
