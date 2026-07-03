@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import PlaceCard from '../../../components/home-page/place-card';
+import PlaceCard from './place-card';
 import { Place } from '@/interfaces/place';
 import { getAccount } from '@/services/identity';
 
