@@ -43,16 +43,20 @@ export default function Form({ placeDetails }: { placeDetails: PlaceForm }): Rea
         <FieldError errors={place.errors} field={PlaceError.Email} />
 
         <label className="label">Website</label>
-        <input type="url" className="input" name="website" defaultValue={place.website} placeholder="Website" />
+        <input type="text" className="input" name="website" defaultValue={place.website} placeholder="Website" />
         <FieldError errors={place.errors} field={PlaceError.Website} />
 
         <label className="label">Facebook</label>
-        <input type="url" className="input" name="facebook" defaultValue={place.facebook} placeholder="Facebook page" />
+        <input type="text" className="input" name="facebook" defaultValue={place.facebook} placeholder="Facebook page" />
         <FieldError errors={place.errors} field={PlaceError.Facebook} />
 
         <label className="label">Instagram</label>
         <input type="text" className="input" name="instagram" defaultValue={place.instagram} placeholder="Instagram handle e.g. @yourock" />
         <FieldError errors={place.errors} field={PlaceError.Instagram} />
+
+        <label className="label">Picture</label>
+        <input type="file" className="file-input file-input-info" name="picture" />
+        <FieldError errors={place.errors} field={PlaceError.Picture} />
 
         <button className="btn btn-neutral mt-4">Submit</button>
       </fieldset>
