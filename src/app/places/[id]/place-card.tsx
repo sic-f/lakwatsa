@@ -27,7 +27,7 @@ export default function PlaceCard({ place, broId }: { place: Place, broId: strin
       <div className="card-body">
         <div className="flex justify-between">
           <h2 className="card-title text-primary cursor-default">{place.name}</h2>
-          <DeletePictureAction id={place.picture.id} />
+          {place.picture && <DeletePictureAction id={place.picture.id} />}
         </div>
         <p className="text-info cursor-default">{place.description}</p>
         <p className="text-accent cursor-default">
