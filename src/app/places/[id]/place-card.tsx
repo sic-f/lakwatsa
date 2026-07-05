@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import DeletePlaceButton from './delete-place-button';
+import DeletePictureAction from './delete-picture-action';
 import { Place } from '@/interfaces/place';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
@@ -24,7 +25,10 @@ export default function PlaceCard({ place, broId }: { place: Place, broId: strin
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title text-primary cursor-default">{place.name}</h2>
+        <div className="flex justify-between">
+          <h2 className="card-title text-primary cursor-default">{place.name}</h2>
+          <DeletePictureAction id={place.picture.id} />
+        </div>
         <p className="text-info cursor-default">{place.description}</p>
         <p className="text-accent cursor-default">
           <FontAwesomeIcon icon={faAngleDoubleRight} className="inline mr-1.5 size-[1.2em]" />
