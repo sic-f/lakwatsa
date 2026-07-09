@@ -1,20 +1,22 @@
 'use client';
 
-import { ReactNode, useRef, useState } from 'react';
+import { ReactNode, useRef } from 'react';
 import Link from 'next/link';
-import DeleteConfirmation from './delete-confirmation';
+import DeleteConfirmation from '../delete-confirmation';
+
+type Props = {
+  id: string;
+  pathname: string;
+  onDelete: (id: string, pathname: string) => Promise<void>;
+  classNames?: string;
+};
 
 export default function DeletePictureAction({
   id,
   pathname,
   onDelete,
   classNames,
-}: {
-  id: string;
-  pathname: string;
-  onDelete: (id: string, pathname: string) => Promise<void>;
-  classNames?: string;
-}): ReactNode {
+}: Props): ReactNode {
   const modalRef = useRef<HTMLAnchorElement>(null);
 
   function handleShowModal() {
@@ -31,6 +33,8 @@ export default function DeletePictureAction({
         pathname={pathname}
         modalRef={modalRef}
         onDelete={onDelete}
+        headline="Delete Place Picture"
+        prompt="Are you sure you want to delete this picture?"
       />
     </>
   );
