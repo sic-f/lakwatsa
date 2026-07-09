@@ -33,7 +33,7 @@ export default async function PlaceDetails({
             <h2 className="card-title text-info cursor-default">
               More information
             </h2>
-            <p className="text-accent cursor-default">
+            <p className="text-accent cursor-default whitespace-pre-wrap">
               {place.information ?? 'no info'}
             </p>
           </article>
