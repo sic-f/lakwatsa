@@ -19,4 +19,9 @@ export const PlaceError = {
   Facebook: 'Facebook',
   Instagram: 'Instagram',
   Picture: 'picture',
+  Pictures: 'pictures',
 };
+
+export const PlacePicture = {
+  Caption: 'Caption',
+}

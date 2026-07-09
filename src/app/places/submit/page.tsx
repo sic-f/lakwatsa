@@ -11,7 +11,7 @@ export default function SubmitPlace(): ReactNode {
 
   return (
     <div className="md:flex justify-center">
-      <BackAction />
+      <BackAction url="/" classNames="block ml-8 mb-8 md:flex items-center max-h-1 mt-12 mr-4" />
       <Form place={place} action={action} />
     </div>
   );

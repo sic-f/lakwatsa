@@ -37,6 +37,7 @@ export interface Place {
   facebook: string;
   instagram: string;
   picture: PlacePicture;
+  pictures: PlacePicture[];
   broId: string;
   createdAt: Date;
 }

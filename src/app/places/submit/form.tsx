@@ -51,6 +51,10 @@ export default function Form({ place, action }: { place: PlaceForm, action: (pay
         <input type="file" className="file-input file-input-info" name="picture" />
         <FieldError errors={place.errors} field={PlaceError.Picture} />
 
+        <label className="label">Pictures</label>
+        <input type="file" className="file-input file-input-warning" name="pictures" multiple/>
+        <FieldError errors={place.errors} field={PlaceError.Pictures} />
+
         <button className="btn btn-neutral mt-4">Submit</button>
       </fieldset>
     </form>

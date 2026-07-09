@@ -37,9 +37,9 @@ export default function Places({ initialPlaces, broId }: { initialPlaces: Place[
   }, [inView])
 
   return (
-    <>
+    <main>
       {places.map(place => <PlaceCard place={place} broId={broId} key={place.id} />)}
       {!isEmpty(places) && <div ref={ref}></div>}
-    </>
+    </main>
   );
 }
