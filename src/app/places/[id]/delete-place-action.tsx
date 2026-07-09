@@ -1,12 +1,12 @@
 'use client';
 
 import { ReactNode, useRef } from 'react';
-import { deletePlace } from '@/actions/place/delete';
 import DeleteConfirmation from '@/components/common/delete-confirmation';
 
 type Props = {
   id: string;
   pathname: string;
+  placeName: string;
   onDelete: (id: string, pathname: string) => Promise<void>;
   classNames?: string;
 };
@@ -14,6 +14,7 @@ type Props = {
 export default function DeletePlaceAction({
   id,
   pathname,
+  placeName,
   onDelete,
   classNames,
 }: Props): ReactNode {
@@ -25,7 +26,7 @@ export default function DeletePlaceAction({
 
   return (
     <>
-      <button className="btn btn-error" onClick={handleShowModal}>
+      <button className={classNames} onClick={handleShowModal}>
         Delete
       </button>
       <DeleteConfirmation
@@ -33,8 +34,8 @@ export default function DeletePlaceAction({
         pathname={pathname}
         modalRef={modalRef}
         onDelete={onDelete}
-        headline="Delete Place Picture"
-        prompt="Are you sure you want to delete this picture?"
+        headline="Delete Place"
+        prompt={`Are you sure you want to delete place "${placeName}"?`}
       />
     </>
   );

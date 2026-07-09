@@ -26,7 +26,7 @@ export default function DeleteConfirmation({
         <p className="py-4">{prompt}</p>
         <section className="modal-action flex justify-end">
           <form method="dialog">
-            <button className="btn btn-secondary">Cancel</button>
+            <button className="btn btn-accent">Cancel</button>
           </form>
           <button
             className="btn btn-error"
