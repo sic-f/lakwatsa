@@ -4,11 +4,12 @@ import { ChangePasswordForm } from '@/interfaces/account';
 import { getToken } from '@/services/session';
 import { parseErrors } from '@/services/parse-errors';
 import { isEmpty } from 'lodash';
+import { catchSession } from '@/services/session/catch-session';
 
 export async function changePassword(state: { id: string }, formData: FormData): Promise<ChangePasswordForm> {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/accounts/${state.id}/password`,
-    {
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/accounts/${state.id}/password`;
+  async function options() {
+    return {
       method: 'PUT',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -19,8 +20,11 @@ export async function changePassword(state: { id: string }, formData: FormData):
         password: formData.get('password'),
         passwordConfirmation: formData.get('passwordConfirmation'),
       }),
-    }
-  );
+    };
+  }
+
+  let response = await fetch(url, await options());
+  response = await catchSession(response, options);
 
   if (!response.ok) {
     const errorsResponse = await response.json();

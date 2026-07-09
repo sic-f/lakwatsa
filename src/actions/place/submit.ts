@@ -1,31 +1,18 @@
 'use server';
 
+import { redirect } from 'next/navigation';
 import { PlaceForm } from '@/interfaces/place';
 import { getToken } from "@/services/session";
 import { catchSession } from '@/services/session/catch-session';
-import { redirect } from 'next/navigation';
+import { getFormData } from '@/services/form-data';
 
 export async function submit(_: PlaceForm, formData: FormData): Promise<PlaceForm> {
   const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/places`;
   async function options(): Promise<RequestInit> {
     return {
       method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${await getToken()}`,
-      }),
-      body: JSON.stringify({
-        name: formData.get('name'),
-        description: formData.get('description'),
-        information: formData.get('information'),
-        address: formData.get('address'),
-        mobile: formData.get('mobile'),
-        landline: formData.get('landline'),
-        email: formData.get('email'),
-        website: formData.get('website'),
-        facebook: formData.get('facebook'),
-        instagram: formData.get('instagram'),
-      }),
+      headers: new Headers({ Authorization: `Bearer ${await getToken()}` }),
+      body: await getFormData(formData),
     }
   }
 
@@ -50,7 +37,7 @@ export async function submit(_: PlaceForm, formData: FormData): Promise<PlaceFor
     };
   }
 
-  const { id } = (await response.json()).place;
+  const { id } = await response.json();
 
   redirect(`/places/${id}`);
 }

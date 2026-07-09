@@ -12,7 +12,7 @@ export default function Form({ placeDetails }: { placeDetails: PlaceForm }): Rea
   return (
     <form action={action} className="flex flex-col justify-center items-center md:my-8">
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-        <legend className="fieldset-legend">Submit a place</legend>
+        <legend className="fieldset-legend">Update details</legend>
         <p className="text-success">{place.message}</p>
         <label className="label">Name</label>
         <input type="text" className="input validator" name="name" defaultValue={place.name} placeholder="Name of place, establishment, store, etc." />
@@ -43,16 +43,24 @@ export default function Form({ placeDetails }: { placeDetails: PlaceForm }): Rea
         <FieldError errors={place.errors} field={PlaceError.Email} />
 
         <label className="label">Website</label>
-        <input type="url" className="input" name="website" defaultValue={place.website} placeholder="Website" />
+        <input type="text" className="input" name="website" defaultValue={place.website} placeholder="Website" />
         <FieldError errors={place.errors} field={PlaceError.Website} />
 
         <label className="label">Facebook</label>
-        <input type="url" className="input" name="facebook" defaultValue={place.facebook} placeholder="Facebook page" />
+        <input type="text" className="input" name="facebook" defaultValue={place.facebook} placeholder="Facebook page" />
         <FieldError errors={place.errors} field={PlaceError.Facebook} />
 
         <label className="label">Instagram</label>
         <input type="text" className="input" name="instagram" defaultValue={place.instagram} placeholder="Instagram handle e.g. @yourock" />
         <FieldError errors={place.errors} field={PlaceError.Instagram} />
+
+        <label className="label">Picture</label>
+        <input type="file" className="file-input file-input-info" name="picture" />
+        <FieldError errors={place.errors} field={PlaceError.Picture} />
+        
+        <label className="label">Pictures</label>
+        <input type="file" className="file-input file-input-warning" name="pictures" multiple />
+        <FieldError errors={place.errors} field={PlaceError.Pictures} />
 
         <button className="btn btn-neutral mt-4">Submit</button>
       </fieldset>

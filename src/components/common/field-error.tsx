@@ -28,7 +28,7 @@ export default function FieldError({ errors, field }: Props): ReactNode | undefi
   function renderFieldError(errors: Error, field: string) {
     if (hasMultipleErrorsPerField(errors, field)) renderMultipleErrors(errors[field]);
 
-    return <p className="text-red-400">{errors[field][0]}</p>;
+    return <p className="text-error">{errors[field][0]}</p>;
   }
 
   return renderFieldError(errors, field);

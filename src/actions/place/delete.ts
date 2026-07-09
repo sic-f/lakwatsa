@@ -1,7 +1,7 @@
 'use server';
 
-import { catchSession } from '@/services/session/catch-session';
 import { redirect } from 'next/navigation';
+import { catchSession } from '@/services/session/catch-session';
 import { getToken } from '@/services/session';
 
 export async function deletePlace(id: string): Promise<void> {
@@ -16,7 +16,7 @@ export async function deletePlace(id: string): Promise<void> {
   let response: Response = await fetch(url, await options());
   response = await catchSession(response, options);
 
-  if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
-
+  if (!response.ok) throw new Error(`${response.status} ${response.statusText} ${await response.text()}`);
+  
   redirect('/');
 }
