@@ -9,7 +9,10 @@ import { parseErrors } from '@/services/parse-errors';
 import { refreshToken } from '@/services/session/refresh-token';
 import { catchSession } from '@/services/session/catch-session';
 
-export async function updateAccount(state: AccountProfileForm, formData: FormData): Promise<AccountProfileForm> {
+export async function updateAccount(
+  state: AccountProfileForm,
+  formData: FormData,
+): Promise<AccountProfileForm> {
   await refreshToken();
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/accounts/${state.id}`,
@@ -22,11 +25,11 @@ export async function updateAccount(state: AccountProfileForm, formData: FormDat
       body: JSON.stringify({
         email: formData.get('email'),
         firstName: formData.get('firstName'),
-        lastName: formData.get('lastName')
+        lastName: formData.get('lastName'),
       }),
-    }
+    },
   );
-  
+
   if (!response.ok) {
     const errorsResponse = await response.json();
     const errors: AccountError = await parseErrors(errorsResponse.errors);
@@ -53,21 +56,24 @@ export async function updateAccount(state: AccountProfileForm, formData: FormDat
     lastName: identity.lastName,
     message: data.message,
   };
-};
+}
 
-export async function updateAvatar(state: { message?: string; errors?: string; } | undefined, formData: FormData) {
+export async function updateAvatar(
+  state: { message?: string; errors?: string } | undefined,
+  formData: FormData,
+) {
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/accounts/update-avatar`;
   async function options(): Promise<RequestInit> {
     return {
       method: 'PUT',
       headers: new Headers({ Authorization: `Bearer ${await getToken()}` }),
-      body: formData
+      body: formData,
     };
   }
 
   let response = await fetch(url, await options());
   response = await catchSession(response, options);
-  
+
   if (response.ok) {
     const data = await response.json();
 
@@ -77,11 +83,14 @@ export async function updateAvatar(state: { message?: string; errors?: string; }
   } else {
     const data = await response.json();
 
-    return { errors: data.errors }
+    return { errors: data.errors };
   }
 }
 
-export async function deleteAvatar(): Promise<{ avatar: string, message: string }> {
+export async function deleteAvatar(): Promise<{
+  avatar: string;
+  message: string;
+}> {
   const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/accounts/delete-avatar`;
   async function options(): Promise<RequestInit> {
     return {
@@ -94,11 +103,11 @@ export async function deleteAvatar(): Promise<{ avatar: string, message: string 
   response = await catchSession(response, options);
 
   if (response.ok) {
-    const data = await response.json();
+    const { token } = await response.json();
 
-    await setSession(data.token);
+    await setSession(token);
 
-    return { message: 'Deleted avatar.', avatar: AccountProfile.BlankAvatar }
+    return { message: 'Deleted avatar.', avatar: AccountProfile.BlankAvatar };
   } else {
     throw new Error('Error deleting avatar.');
   }
