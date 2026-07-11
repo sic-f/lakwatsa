@@ -7,15 +7,22 @@ import { isEmpty } from 'lodash';
 const INITIAL_NUMBER_OF_PLACES = 5;
 
 export default async function Home() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/places?offset=${new Date().toISOString()}&limit=${INITIAL_NUMBER_OF_PLACES}`);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/places?offset=${new Date().toISOString()}&limit=${INITIAL_NUMBER_OF_PLACES}`,
+  );
 
-  if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+  if (!response.ok)
+    throw new Error(`${response.status} ${response.statusText}`);
 
   const places: Place[] = await response.json();
 
   return (
-    <div className="flex flex-col md:flex-row md:flex-wrap md:justify-center max-sm:items-center h-screen gap-12 pt-8">
-      {isEmpty(places) ? <EmptyPlacesText /> : <Places initialPlaces={places} broId={(await getAccount()).id} />}
+    <div className="flex h-screen flex-col gap-12 pt-8 max-sm:items-center md:flex-row md:flex-wrap md:justify-center">
+      {isEmpty(places) ? (
+        <EmptyPlacesText />
+      ) : (
+        <Places initialPlaces={places} broId={(await getAccount()).id} />
+      )}
     </div>
   );
 }

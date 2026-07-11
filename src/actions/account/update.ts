@@ -73,7 +73,6 @@ export async function updateAvatar(
 
   let response = await fetch(url, await options());
   response = await catchSession(response, options);
-
   if (response.ok) {
     const data = await response.json();
 
