@@ -17,7 +17,7 @@ export default async function Home() {
   const places: Place[] = await response.json();
 
   return (
-    <div className="flex h-screen flex-col gap-12 pt-8 max-sm:items-center md:flex-row md:flex-wrap md:justify-center">
+    <div>
       {isEmpty(places) ? (
         <EmptyPlacesText />
       ) : (

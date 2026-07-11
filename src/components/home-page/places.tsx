@@ -46,7 +46,7 @@ export default function Places({
   }, [inView]);
 
   return (
-    <main>
+    <main className="flex flex-col gap-12 pt-8 max-sm:items-center md:flex-row md:flex-wrap md:justify-center">
       {places.map((place) => (
         <PlaceCard place={place} broId={broId} key={place.id} />
       ))}
