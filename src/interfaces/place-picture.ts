@@ -7,6 +7,7 @@ export interface PlacePicture {
   small: string;
   placeId: string;
   uploaderId: string;
+  index: number;
 }
 
 export interface PlacePictureForm {
