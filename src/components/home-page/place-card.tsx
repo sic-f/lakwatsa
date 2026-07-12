@@ -19,13 +19,15 @@ export default function PlaceCard({
   return (
     <article className="card bg-base-100 w-96 shadow-sm">
       <figure>
-        <Image
-          src={place.picture?.small ?? '/images/blank-place.webp'}
-          width={640}
-          height={360}
-          loading="eager"
-          alt="Place primary picture"
-        />
+        <Link href={`/places/${place.id}`}>
+          <Image
+            src={place.picture?.small ?? '/images/blank-place.webp'}
+            width={640}
+            height={360}
+            loading="eager"
+            alt="Place primary picture"
+          />
+        </Link>
       </figure>
       <div className="card-body">
         <h2 className="card-title">
