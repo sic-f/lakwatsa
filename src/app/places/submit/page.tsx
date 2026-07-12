@@ -5,14 +5,24 @@ import BackAction from './back-action';
 import Form from './form';
 import { initialState } from '@/services/empty-form';
 import { submit } from '@/actions/place/submit';
+import Loading from './submitting-indicator';
 
 export default function SubmitPlace(): ReactNode {
-  const [place, action] = useActionState(submit, initialState);
+  const [place, action, pending] = useActionState(submit, initialState);
 
   return (
-    <div className="md:flex justify-center">
-      <BackAction url="/" classNames="block ml-8 mb-8 md:flex items-center max-h-1 mt-12 mr-4" />
-      <Form place={place} action={action} />
+    <div className="flex items-center justify-center">
+      {pending ? (
+        <Loading />
+      ) : (
+        <div className="md:flex">
+          <BackAction
+            url="/"
+            classNames="block mb-8 items-center md:flex max-h-1 mt-6 md:mt-12 md:mr-4"
+          />
+          <Form place={place} action={action} />
+        </div>
+      )}
     </div>
   );
 }
