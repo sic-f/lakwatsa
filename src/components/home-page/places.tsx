@@ -10,9 +10,15 @@ import dayjs from 'dayjs';
 
 const NUMBER_OF_PLACES_TO_FETCH = 5;
 
-export default function Places({ initialPlaces, broId }: { initialPlaces: Place[], broId: string }): ReactNode {
+export default function Places({
+  initialPlaces,
+  broId,
+}: {
+  initialPlaces: Place[];
+  broId: string;
+}): ReactNode {
   const [places, setPlaces] = useState<Place[]>(initialPlaces);
-  const [offset, setOffset] = useState(initialPlaces.at(-1)!.createdAt)
+  const [offset, setOffset] = useState(initialPlaces.at(-1)!.createdAt);
   const [fetchedAllPlaces, setFetchedAllPlaces] = useState<boolean>(false);
   const { ref, inView } = useInView();
 
@@ -22,23 +28,28 @@ export default function Places({ initialPlaces, broId }: { initialPlaces: Place[
     async function fetchPlaces() {
       if (!inView) return;
 
-      const morePlaces: Place[] = await fetchMorePlaces(dayjs(offset).toISOString(), NUMBER_OF_PLACES_TO_FETCH);
+      const morePlaces: Place[] = await fetchMorePlaces(
+        dayjs(offset).toISOString(),
+        NUMBER_OF_PLACES_TO_FETCH,
+      );
 
       if (isEmpty(morePlaces)) {
         setFetchedAllPlaces(true);
         return;
       }
 
-      setPlaces(places => [...places, ...morePlaces]);
+      setPlaces((places) => [...places, ...morePlaces]);
       setOffset(morePlaces.at(-1)!.createdAt);
     }
 
     fetchPlaces();
-  }, [inView])
+  }, [inView]);
 
   return (
-    <main>
-      {places.map(place => <PlaceCard place={place} broId={broId} key={place.id} />)}
+    <main className="flex flex-col gap-12 pt-8 max-sm:items-center md:flex-row md:flex-wrap md:justify-center">
+      {places.map((place) => (
+        <PlaceCard place={place} broId={broId} key={place.id} />
+      ))}
       {!isEmpty(places) && <div ref={ref}></div>}
     </main>
   );

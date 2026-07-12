@@ -6,14 +6,17 @@ import { getFormData } from '@/services/form-data';
 import { getToken } from '@/services/session';
 import { catchSession } from '@/services/session/catch-session';
 
-export async function update(state: PlaceForm, formData: FormData): Promise<PlaceForm> {
+export async function update(
+  state: PlaceForm,
+  formData: FormData,
+): Promise<PlaceForm> {
   const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${state.id}`;
   async function options(): Promise<RequestInit> {
     return {
       method: 'PUT',
       headers: new Headers({ Authorization: `Bearer ${await getToken()}` }),
       body: await getFormData(formData),
-    }
+    };
   }
 
   let response: Response = await fetch(url, await options());
@@ -35,7 +38,7 @@ export async function update(state: PlaceForm, formData: FormData): Promise<Plac
       facebook: formData.get('facebook')?.toString(),
       instagram: formData.get('instagram')?.toString(),
       errors: errors,
-    }
+    };
   }
 
   redirect(`/places/${state.id}`);

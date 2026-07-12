@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import TopActions from './top-actions';
 import Caption from './caption';
+import { PlacePicture } from '@/interfaces/place-picture';
 import { getAccount } from '@/services/identity';
 import { isEmpty } from 'lodash';
 
@@ -15,11 +16,16 @@ export default async function Picture({
 }): Promise<ReactNode> {
   const { pictureId } = await params;
   const { slide } = await searchParams;
+  const broId: string = (await getAccount()).id;
 
   function getQueryParameter(slide: string): string {
     if (isEmpty(slide)) return '';
 
     return `?slide=${slide}`;
+  }
+
+  function isDeletable(): boolean {
+    return broId == picture.uploaderId;
   }
 
   const response = await fetch(
@@ -31,7 +37,7 @@ export default async function Picture({
       `${response.status} ${response.statusText} ${await response.text()}`,
     );
 
-  const picture = await response.json();
+  const picture: PlacePicture = await response.json();
 
   return (
     <section className="flex justify-center">
@@ -40,6 +46,7 @@ export default async function Picture({
           id={picture.id}
           placeId={picture.placeId}
           index={picture.index}
+          isDeletable={isDeletable()}
         />
         <Link
           href={picture.normal}

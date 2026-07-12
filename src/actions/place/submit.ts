@@ -2,25 +2,28 @@
 
 import { redirect } from 'next/navigation';
 import { PlaceForm } from '@/interfaces/place';
-import { getToken } from "@/services/session";
+import { getToken } from '@/services/session';
 import { catchSession } from '@/services/session/catch-session';
 import { getFormData } from '@/services/form-data';
 
-export async function submit(_: PlaceForm, formData: FormData): Promise<PlaceForm> {
+export async function submit(
+  _: PlaceForm,
+  formData: FormData,
+): Promise<PlaceForm> {
   const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/places`;
   async function options(): Promise<RequestInit> {
     return {
       method: 'POST',
       headers: new Headers({ Authorization: `Bearer ${await getToken()}` }),
       body: await getFormData(formData),
-    }
+    };
   }
 
   let response: Response = await fetch(url, await options());
   response = await catchSession(response, options);
 
   if (!response.ok) {
-    const { errors } = (await response.json());
+    const { errors } = await response.json();
 
     return {
       name: formData.get('name')?.toString(),

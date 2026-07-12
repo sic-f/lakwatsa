@@ -1,10 +1,11 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import DeletePlaceButton from './delete-place-button';
+import DeletePlaceAction from './delete-place-action';
 import DeletePictureAction from '@/components/common/place-picture/delete-picture-action';
 import { Place } from '@/interfaces/place';
 import { PlacePicture } from '@/interfaces/place-picture';
+import { deletePlace } from '@/actions/place/delete';
 import { deletePicture } from '@/actions/picture/delete';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
@@ -117,7 +118,15 @@ export default function PlaceCard({
               Edit
             </Link>
           )}
-          {isPlaceOwner() && <DeletePlaceButton id={place.id} />}
+          {isPlaceOwner() && (
+            <DeletePlaceAction
+              id={place.id}
+              pathname="/"
+              placeName={place.name}
+              onDelete={deletePlace}
+              classNames="btn btn-error"
+            />
+          )}
         </div>
       </div>
     </article>
