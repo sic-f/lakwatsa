@@ -27,18 +27,20 @@ export default async function PlaceDetails({
         <PlaceCard place={place} broId={broId} />
         <Pictures pictures={place.pictures} />
       </div>
-      <div className="flex justify-start">
-        <div className="card bg-base-200 w-96 shadow-sm">
-          <article className="card-body">
-            <h2 className="card-title text-info cursor-default">
-              More information
-            </h2>
-            <p className="text-accent cursor-default whitespace-pre-wrap">
-              {place.information ?? 'no info'}
-            </p>
-          </article>
+      {place.information && (
+        <div className="flex justify-start">
+          <div className="card bg-base-200 w-96 shadow-sm">
+            <article className="card-body">
+              <h2 className="card-title text-info cursor-default">
+                More information
+              </h2>
+              <p className="text-accent cursor-default whitespace-pre-wrap">
+                {place.information ?? 'no info'}
+              </p>
+            </article>
+          </div>
         </div>
-      </div>
+      )}
     </main>
   );
 }
