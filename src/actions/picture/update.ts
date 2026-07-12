@@ -38,7 +38,7 @@ export async function updatePicture(
   return {
     id: state.id,
     caption: formData.get('caption')?.toString(),
-    uploaderId: data.picture.uploaderId,
+    uploaderId: data.uploaderId,
     message: data.message,
   };
 }
