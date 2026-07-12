@@ -3,9 +3,9 @@
 import { ReactNode, useActionState } from 'react';
 import BackAction from './back-action';
 import Form from './form';
+import Loading from './submitting-indicator';
 import { initialState } from '@/services/empty-form';
 import { submit } from '@/actions/place/submit';
-import Loading from './submitting-indicator';
 
 export default function SubmitPlace(): ReactNode {
   const [place, action, pending] = useActionState(submit, initialState);

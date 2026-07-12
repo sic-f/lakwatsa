@@ -1,65 +1,139 @@
 'use client';
 
-import { ReactNode, useActionState } from 'react';
+import { ReactNode } from 'react';
 import { PlaceError } from '@/constants/field-errors';
 import { PlaceForm } from '@/interfaces/place';
 import FieldError from '@/components/common/field-error';
-import { update } from '@/actions/place/update';
 
-export default function Form({ placeDetails }: { placeDetails: PlaceForm }): ReactNode {
-  const [place, action] = useActionState(update, placeDetails);
-
+export default function Form({
+  place,
+  action,
+}: {
+  place: PlaceForm;
+  action: (payload: FormData) => void;
+}): ReactNode {
   return (
-    <form action={action} className="flex flex-col justify-center items-center md:my-8">
+    <form
+      action={action}
+      className="flex flex-col items-center justify-center md:my-8"
+    >
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
         <legend className="fieldset-legend">Update details</legend>
         <p className="text-success">{place.message}</p>
         <label className="label">Name</label>
-        <input type="text" className="input validator" name="name" defaultValue={place.name} placeholder="Name of place, establishment, store, etc." />
+        <input
+          type="text"
+          className="input validator"
+          name="name"
+          defaultValue={place.name}
+          placeholder="Name of place, establishment, store, etc."
+        />
         <FieldError errors={place.errors} field={PlaceError.Name} />
 
         <label className="label">Description</label>
-        <input type="text" className="input" name="description" defaultValue={place.description} placeholder="Short description of the place" />
+        <input
+          type="text"
+          className="input"
+          name="description"
+          defaultValue={place.description}
+          placeholder="Short description of the place"
+        />
         <FieldError errors={place.errors} field={PlaceError.Description} />
 
         <label className="label">Information</label>
-        <textarea className="textarea h-24" name="information" defaultValue={place.information} placeholder="More info about the place..."></textarea>
+        <textarea
+          className="textarea h-24"
+          name="information"
+          defaultValue={place.information}
+          placeholder="More info about the place..."
+        ></textarea>
         <FieldError errors={place.errors} field={PlaceError.Information} />
 
         <label className="label">Address</label>
-        <input type="text" className="input validator" name="address" defaultValue={place.address} placeholder="Address" />
+        <input
+          type="text"
+          className="input validator"
+          name="address"
+          defaultValue={place.address}
+          placeholder="Address"
+        />
         <FieldError errors={place.errors} field={PlaceError.Address} />
 
         <label className="label">Mobile</label>
-        <input type="text" className="input" name="mobile" defaultValue={place.mobile} placeholder="Mobile no." />
+        <input
+          type="text"
+          className="input"
+          name="mobile"
+          defaultValue={place.mobile}
+          placeholder="Mobile no."
+        />
         <FieldError errors={place.errors} field={PlaceError.Mobile} />
 
         <label className="label">Landline</label>
-        <input type="text" className="input" name="landline" defaultValue={place.landline} placeholder="Landline no." />
+        <input
+          type="text"
+          className="input"
+          name="landline"
+          defaultValue={place.landline}
+          placeholder="Landline no."
+        />
         <FieldError errors={place.errors} field={PlaceError.Landline} />
 
         <label className="label">Email</label>
-        <input type="email" className="input" name="email" defaultValue={place.email} placeholder="e.g. mail@site.com" />
+        <input
+          type="email"
+          className="input"
+          name="email"
+          defaultValue={place.email}
+          placeholder="e.g. mail@site.com"
+        />
         <FieldError errors={place.errors} field={PlaceError.Email} />
 
         <label className="label">Website</label>
-        <input type="text" className="input" name="website" defaultValue={place.website} placeholder="Website" />
+        <input
+          type="text"
+          className="input"
+          name="website"
+          defaultValue={place.website}
+          placeholder="Website"
+        />
         <FieldError errors={place.errors} field={PlaceError.Website} />
 
         <label className="label">Facebook</label>
-        <input type="text" className="input" name="facebook" defaultValue={place.facebook} placeholder="Facebook page" />
+        <input
+          type="text"
+          className="input"
+          name="facebook"
+          defaultValue={place.facebook}
+          placeholder="Facebook page"
+        />
         <FieldError errors={place.errors} field={PlaceError.Facebook} />
 
         <label className="label">Instagram</label>
-        <input type="text" className="input" name="instagram" defaultValue={place.instagram} placeholder="Instagram handle e.g. @yourock" />
+        <input
+          type="text"
+          className="input"
+          name="instagram"
+          defaultValue={place.instagram}
+          placeholder="Instagram handle e.g. @yourock"
+        />
         <FieldError errors={place.errors} field={PlaceError.Instagram} />
 
         <label className="label">Picture</label>
-        <input type="file" className="file-input file-input-info" name="picture" />
+        <input
+          type="file"
+          className="file-input file-input-info"
+          name="picture"
+        />
         <FieldError errors={place.errors} field={PlaceError.Picture} />
-        
+
         <label className="label">Pictures</label>
-        <input type="file" className="file-input file-input-warning" name="pictures" multiple />
+        <input
+          type="file"
+          className="file-input file-input-warning"
+          name="pictures"
+          multiple
+        />
         <FieldError errors={place.errors} field={PlaceError.Pictures} />
 
         <button className="btn btn-neutral mt-4">Submit</button>
