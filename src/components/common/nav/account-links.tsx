@@ -11,12 +11,16 @@ export default async function AccountLinks(): Promise<ReactNode | undefined> {
 
   async function getAvatar() {
     const avatar = (await getAccount()).avatar;
-    return avatar === "" ? AccountProfile.BlankThumb : avatar;
+    return avatar === '' ? AccountProfile.BlankThumb : avatar;
   }
 
   return (
     <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+      <button
+        className="btn btn-ghost btn-circle avatar"
+        popoverTarget="account"
+        style={{ anchorName: '--account-1' }}
+      >
         <div className="w-10 rounded-full">
           <Image
             alt="Account related dropdown links"
@@ -25,16 +29,24 @@ export default async function AccountLinks(): Promise<ReactNode | undefined> {
             height={48}
           />
         </div>
-      </div>
+      </button>
       <ul
         tabIndex={-1}
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+        popover="auto"
+        id="account"
+        className="dropdown menu rounded-box bg-base-100 w-52 shadow-sm"
+        style={{ positionAnchor: '--account-1' }}
+      >
         <li>
           <Link href="/account" className="justify-between">
             Profile
           </Link>
         </li>
-        <li><Link href="/#" onClick={logout}>Logout</Link></li>
+        <li>
+          <Link href="/#" onClick={logout}>
+            Logout
+          </Link>
+        </li>
       </ul>
     </div>
   );
