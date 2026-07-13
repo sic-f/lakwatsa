@@ -9,19 +9,18 @@ export default async function Hamburger(): Promise<ReactNode> {
       <button
         className="btn"
         popoverTarget="popover-1"
-        style={{ anchorName: '--anchor-1' } /* as React.CSSProperties */}
+        style={{ anchorName: '--anchor-1' }}
       >
         <FontAwesomeIcon icon={faBars} />
       </button>
-
       <ul
         className="dropdown menu rounded-box bg-base-100 w-52 shadow-sm"
         popover="auto"
         id="popover-1"
-        style={{ positionAnchor: '--anchor-1' } /* as React.CSSProperties */}
+        style={{ positionAnchor: '--anchor-1' }}
       >
         <li>
-          <Link href="/bookmakrs">Bookmarks</Link>
+          <Link href="/bookmarks">Bookmarks</Link>
         </li>
       </ul>
     </div>
