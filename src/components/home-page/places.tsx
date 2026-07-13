@@ -13,9 +13,11 @@ const NUMBER_OF_PLACES_TO_FETCH = 5;
 export default function Places({
   initialPlaces,
   broId,
+  hasSession,
 }: {
   initialPlaces: Place[];
   broId: string;
+  hasSession: boolean;
 }): ReactNode {
   const [places, setPlaces] = useState<Place[]>(initialPlaces);
   const [offset, setOffset] = useState(initialPlaces.at(-1)!.createdAt);
@@ -48,7 +50,12 @@ export default function Places({
   return (
     <main className="flex flex-col gap-12 pt-8 max-sm:items-center md:flex-row md:flex-wrap md:justify-center">
       {places.map((place) => (
-        <PlaceCard place={place} broId={broId} key={place.id} />
+        <PlaceCard
+          place={place}
+          broId={broId}
+          key={place.id}
+          hasSession={hasSession}
+        />
       ))}
       {!isEmpty(places) && <div ref={ref}></div>}
     </main>
