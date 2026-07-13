@@ -1,8 +1,9 @@
-import { ReactNode } from 'react';
+import { ReactNode, use } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import BookmarkAction from '../bookmark/bookmark-action';
 import { Place } from '@/interfaces/place';
+import { isBookmarkable } from '@/services/utilities/misc';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
@@ -10,20 +11,10 @@ import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 export default function PlaceCard({
   place,
   broId,
-  hasSession,
 }: {
   place: Place;
   broId: string;
-  hasSession: boolean;
 }): ReactNode {
-  function isNotPlaceOwner(): boolean {
-    return broId !== place.broId;
-  }
-
-  function bookmarkable(): boolean {
-    return isNotPlaceOwner() && hasSession;
-  }
-
   return (
     <article className="card bg-base-100 w-96 shadow-sm">
       <figure>
@@ -42,7 +33,7 @@ export default function PlaceCard({
           <h2 className="card-title">
             <Link href={`/places/${place.id}`}>{place.name}</Link>
           </h2>
-          {bookmarkable() && (
+          {isBookmarkable(broId, place.broId) && (
             <BookmarkAction caption="Save me!😜">
               <FontAwesomeIcon icon={faBookmark} className="cursor-pointer" />
             </BookmarkAction>

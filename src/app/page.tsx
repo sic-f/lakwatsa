@@ -2,7 +2,6 @@ import EmptyPlacesText from '@/components/home-page/empty-places-text';
 import Places from '@/components/home-page/places';
 import { Place } from '@/interfaces/place';
 import { getAccount } from '@/services/identity';
-import { hasSession } from '@/services/session';
 import { isEmpty } from 'lodash';
 
 const INITIAL_NUMBER_OF_PLACES = 5;
@@ -22,11 +21,7 @@ export default async function Home() {
       {isEmpty(places) ? (
         <EmptyPlacesText />
       ) : (
-        <Places
-          initialPlaces={places}
-          broId={(await getAccount()).id}
-          hasSession={await hasSession()}
-        />
+        <Places initialPlaces={places} broId={(await getAccount()).id} />
       )}
     </div>
   );
