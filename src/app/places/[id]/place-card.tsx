@@ -3,12 +3,20 @@ import Link from 'next/link';
 import Image from 'next/image';
 import DeletePlaceAction from './delete-place-action';
 import DeletePictureAction from '@/components/common/place-picture/delete-picture-action';
+import BookmarkAction from '@/components/bookmark/bookmark-action';
 import { Place } from '@/interfaces/place';
 import { PlacePicture } from '@/interfaces/place-picture';
 import { deletePlace } from '@/actions/place/delete';
 import { deletePicture } from '@/actions/picture/delete';
+import {
+  isPlaceOwner,
+  isPlacePictureDeletable,
+  isBookmarkable,
+} from '@/services/utilities/misc';
+import { isEmpty } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import {
   faAt,
   faEarthAmericas,
@@ -16,28 +24,26 @@ import {
   faMobile,
   faPhone,
 } from '@fortawesome/free-solid-svg-icons';
-import { isEmpty } from 'lodash';
 
-export default function PlaceCard({
+export default async function PlaceCard({
   place,
   broId,
 }: {
   place: Place;
   broId: string;
-}): ReactNode {
+}): Promise<ReactNode> {
   function getPictureLink(picture?: PlacePicture): string {
     if (isEmpty(picture)) return '#';
 
     return `/places/${place.id}/picture/${place.picture?.id}`;
   }
 
-  function isDeleteable(): boolean {
-    return isPlaceOwner() && !isEmpty(place.picture);
-  }
-
-  function isPlaceOwner() {
-    return broId === place.broId;
-  }
+  const isOperableByBro: boolean = isPlaceOwner(broId, place.broId);
+  const isDeletable: boolean = isPlacePictureDeletable(
+    broId,
+    place.broId,
+    place.picture,
+  );
 
   return (
     <article className="card bg-base-100 w-96 shadow-sm sm:min-w-72 md:max-lg:min-w-80 xl:min-w-80">
@@ -57,7 +63,12 @@ export default function PlaceCard({
           <h2 className="card-title text-primary cursor-default">
             {place.name}
           </h2>
-          {isDeleteable() && (
+          {isBookmarkable(broId, place.broId) && (
+            <BookmarkAction caption="Save me!😜">
+              <FontAwesomeIcon icon={faBookmark} className="cursor-pointer" />
+            </BookmarkAction>
+          )}
+          {isDeletable && (
             <DeletePictureAction
               id={place.picture.id}
               pathname={`/places/${place.id}`}
@@ -113,12 +124,12 @@ export default function PlaceCard({
           {place.instagram}
         </p>
         <div className="card-actions justify-end">
-          {isPlaceOwner() && (
+          {isOperableByBro && (
             <Link className="btn btn-accent" href={`/places/${place.id}/edit`}>
               Edit
             </Link>
           )}
-          {isPlaceOwner() && (
+          {isOperableByBro && (
             <DeletePlaceAction
               id={place.id}
               pathname="/"
