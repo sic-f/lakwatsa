@@ -6,7 +6,6 @@ import { Place } from '@/interfaces/place';
 import { isBookmarkable } from '@/services/utilities/misc';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 
 export default function PlaceCard({
   place,
@@ -34,9 +33,11 @@ export default function PlaceCard({
             <Link href={`/places/${place.id}`}>{place.name}</Link>
           </h2>
           {isBookmarkable(broId, place.broId) && (
-            <BookmarkAction caption="Save me!😜">
-              <FontAwesomeIcon icon={faBookmark} className="cursor-pointer" />
-            </BookmarkAction>
+            <BookmarkAction
+              placeId={place.id}
+              caption="Save me!😜"
+              bookmarkId={place.bookmarkId}
+            />
           )}
         </div>
         <p className="text-secondary cursor-default">{place.description}</p>

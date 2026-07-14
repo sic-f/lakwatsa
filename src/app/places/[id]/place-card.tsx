@@ -16,7 +16,6 @@ import {
 import { isEmpty } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import {
   faAt,
   faEarthAmericas,
@@ -39,6 +38,7 @@ export default async function PlaceCard({
   }
 
   const isOperableByBro: boolean = isPlaceOwner(broId, place.broId);
+  const isPlaceBookmarkable: boolean = isBookmarkable(broId, place.broId);
   const isDeletable: boolean = isPlacePictureDeletable(
     broId,
     place.broId,
@@ -63,10 +63,12 @@ export default async function PlaceCard({
           <h2 className="card-title text-primary cursor-default">
             {place.name}
           </h2>
-          {isBookmarkable(broId, place.broId) && (
-            <BookmarkAction caption="Save me!😜">
-              <FontAwesomeIcon icon={faBookmark} className="cursor-pointer" />
-            </BookmarkAction>
+          {isPlaceBookmarkable && (
+            <BookmarkAction
+              placeId={place.id}
+              caption="Save me!😜"
+              bookmarkId={place.bookmarkId}
+            />
           )}
           {isDeletable && (
             <DeletePictureAction

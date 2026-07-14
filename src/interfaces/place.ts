@@ -36,6 +36,7 @@ export interface Place {
   website: string;
   facebook: string;
   instagram: string;
+  bookmarkId: string;
   picture: PlacePicture;
   pictures: PlacePicture[];
   broId: string;

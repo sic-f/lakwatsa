@@ -7,8 +7,9 @@ import { isEmpty } from 'lodash';
 const INITIAL_NUMBER_OF_PLACES = 5;
 
 export default async function Home() {
+  const broId: string = (await getAccount()).id;
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/places?offset=${new Date().toISOString()}&limit=${INITIAL_NUMBER_OF_PLACES}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/places?offset=${new Date().toISOString()}&limit=${INITIAL_NUMBER_OF_PLACES}&broId=${broId}`,
   );
 
   if (!response.ok)
@@ -21,7 +22,7 @@ export default async function Home() {
       {isEmpty(places) ? (
         <EmptyPlacesText />
       ) : (
-        <Places initialPlaces={places} broId={(await getAccount()).id} />
+        <Places initialPlaces={places} broId={broId} />
       )}
     </div>
   );
