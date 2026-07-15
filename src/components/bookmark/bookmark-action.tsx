@@ -16,6 +16,19 @@ export default function BookmarkAction({
   bookmarkId: string | null;
 }): ReactNode {
   const [bookmarkId, setBookmarkId] = useState<string | null>(savedPlaceId);
+  const [isToast, setIsToast] = useState<boolean>(false);
+
+  function renderToast() {
+    setTimeout(() => setIsToast(false), 5000);
+
+    return (
+      <div className="toast z-1">
+        <div className="alert alert-info">
+          <span>{bookmarkId ? 'Place saved' : 'Unsaved'}</span>
+        </div>
+      </div>
+    );
+  }
 
   async function handleClick(
     _event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -23,9 +36,11 @@ export default function BookmarkAction({
     if (!bookmarkId) {
       const id: string = await bookmark(placeId);
       setBookmarkId(id);
+      setIsToast(true);
     } else {
       await unsave(bookmarkId);
       setBookmarkId(null);
+      setIsToast(true);
     }
   }
 
@@ -40,13 +55,16 @@ export default function BookmarkAction({
   }
 
   return (
-    <div className="tooltip" onClick={handleClick}>
-      <div className="tooltip-content">
-        <div className="-rotate-10 animate-bounce text-2xl font-black text-orange-400">
-          {caption}
+    <>
+      <div className="tooltip" onClick={handleClick}>
+        <div className="tooltip-content">
+          <div className="-rotate-10 animate-bounce text-2xl font-black text-orange-400">
+            {caption}
+          </div>
         </div>
+        {renderBookmarkIcon()}
       </div>
-      {renderBookmarkIcon()}
-    </div>
+      {isToast && renderToast()}
+    </>
   );
 }
