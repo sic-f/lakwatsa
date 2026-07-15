@@ -1,9 +1,6 @@
-import { PlacePicture } from './place-picture';
-
 export interface Bookmark {
-  id: string;
+  placeId: string;
   name: string;
   description: string;
-  picture: PlacePicture;
-  bookmarkableId: string;
+  picture: string;
 }
