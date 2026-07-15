@@ -43,6 +43,11 @@ export default async function AccountLinks(): Promise<ReactNode | undefined> {
           </Link>
         </li>
         <li>
+          <Link href="/bookmarks" className="justify-between max-sm:hidden">
+            Bookmarks
+          </Link>
+        </li>
+        <li>
           <Link href="/#" onClick={logout}>
             Logout
           </Link>
