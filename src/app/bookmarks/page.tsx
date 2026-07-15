@@ -1,11 +1,12 @@
 import { ReactNode } from 'react';
-import { Bookmark } from '@/interfaces/bookmark';
 import BookmarkCard from './bookmark-card';
+import { Bookmark } from '@/interfaces/bookmark';
 import { getToken } from '@/services/session';
+import { getAccount } from '@/services/identity';
 import { catchSession } from '@/services/session/catch-session';
 
 export default async function Bookmarks(): Promise<ReactNode> {
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/saves`;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/saves?broId=${(await getAccount()).id}`;
   async function options(): Promise<RequestInit> {
     return {
       headers: new Headers({
@@ -25,11 +26,13 @@ export default async function Bookmarks(): Promise<ReactNode> {
   const bookmarks: Bookmark[] = await response.json();
 
   return (
-    <main className="flex-warp flex justify-center">
-      <h1 className="mt-2 ml-2 text-4xl">Saved places</h1>
-      {bookmarks.map((bookmark) => (
-        <BookmarkCard bookmark={bookmark} key={bookmark.id} />
-      ))}
+    <main className="flex flex-col items-center">
+      <h1 className="my-2 text-4xl">Saved places</h1>
+      <section className="flex gap-2 max-sm:flex-col sm:flex-wrap sm:justify-center md:gap-4">
+        {bookmarks.map((bookmark) => (
+          <BookmarkCard bookmark={bookmark} key={bookmark.placeId} />
+        ))}
+      </section>
     </main>
   );
 }
