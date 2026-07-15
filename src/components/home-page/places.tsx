@@ -31,6 +31,7 @@ export default function Places({
       const morePlaces: Place[] = await fetchMorePlaces(
         dayjs(offset).toISOString(),
         NUMBER_OF_PLACES_TO_FETCH,
+        broId,
       );
 
       if (isEmpty(morePlaces)) {

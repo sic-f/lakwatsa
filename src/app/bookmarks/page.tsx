@@ -5,8 +5,10 @@ import { getToken } from '@/services/session';
 import { getAccount } from '@/services/identity';
 import { catchSession } from '@/services/session/catch-session';
 
+const NUMBER_OF_PLACES_TO_FETCH = 5;
+
 export default async function Bookmarks(): Promise<ReactNode> {
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/saves?broId=${(await getAccount()).id}`;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/saves?offset=${new Date().toISOString()}&limit=${NUMBER_OF_PLACES_TO_FETCH}&broId=${(await getAccount()).id}`;
   async function options(): Promise<RequestInit> {
     return {
       headers: new Headers({
@@ -22,7 +24,6 @@ export default async function Bookmarks(): Promise<ReactNode> {
     throw new Error(
       `${response.status} ${response.statusText} ${await response.text()}`,
     );
-
   const bookmarks: Bookmark[] = await response.json();
 
   return (
