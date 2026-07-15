@@ -3,4 +3,5 @@ export interface Bookmark {
   name: string;
   description: string;
   picture: string;
+  createdAt: Date;
 }
