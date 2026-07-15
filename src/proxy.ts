@@ -1,38 +1,42 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
+import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { isEmpty } from 'lodash';
- 
-const protectedRoutes = ['/account', '/places/submit']
-const publicRoutes = ['/login', '/register']
- 
+
+const protectedRoutes = ['/account', '/places/submit', '/bookmarks'];
+const publicRoutes = ['/login', '/register'];
+
 export const proxy = async (req: NextRequest) => {
-  const path = req.nextUrl.pathname
-  const isProtectedRoute = protectedRoutes.includes(path)
-  const isPublicRoute = publicRoutes.includes(path)
- 
+  const path = req.nextUrl.pathname;
+  const isProtectedRoute = protectedRoutes.includes(path);
+  const isPublicRoute = publicRoutes.includes(path);
+
   const session = (await cookies()).get('session')?.value;
- 
-  if ((path.startsWith('/places') && path.endsWith('/edit')) && isEmpty(session)) {
+
+  if (
+    path.startsWith('/places') &&
+    path.endsWith('/edit') &&
+    isEmpty(session)
+  ) {
     return NextResponse.redirect(new URL('/login', req.nextUrl));
   }
 
   if (isProtectedRoute && isEmpty(session)) {
-    return NextResponse.redirect(new URL('/login', req.nextUrl))
+    return NextResponse.redirect(new URL('/login', req.nextUrl));
   }
- 
+
   // 5. Redirect to /dashboard if the user is authenticated
   if (
     isPublicRoute &&
     !isEmpty(session) &&
     !req.nextUrl.pathname.startsWith('/account')
   ) {
-    return NextResponse.redirect(new URL('/', req.nextUrl))
+    return NextResponse.redirect(new URL('/', req.nextUrl));
   }
- 
-  return NextResponse.next()
-}
- 
+
+  return NextResponse.next();
+};
+
 // Routes Proxy should not run on
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
-}
+};
