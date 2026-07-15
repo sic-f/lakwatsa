@@ -38,12 +38,10 @@ export default async function AccountLinks(): Promise<ReactNode | undefined> {
         style={{ positionAnchor: '--account-1' }}
       >
         <li>
-          <Link href="/account" className="justify-between">
-            Profile
-          </Link>
+          <Link href="/account">Profile</Link>
         </li>
         <li>
-          <Link href="/bookmarks" className="justify-between max-sm:hidden">
+          <Link href="/bookmarks" className="max-sm:hidden">
             Bookmarks
           </Link>
         </li>
