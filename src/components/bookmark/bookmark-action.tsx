@@ -19,12 +19,12 @@ export default function BookmarkAction({
   const [isToast, setIsToast] = useState<boolean>(false);
 
   function renderToast() {
-    setTimeout(() => setIsToast(false), 5000);
+    setTimeout(() => setIsToast(false), 4000);
 
     return (
       <div className="toast z-1">
         <div className="alert alert-info">
-          <span>{bookmarkId ? 'Place saved' : 'Unsaved'}</span>
+          <span>{bookmarkId ? 'Place saved 🔖' : 'Unsaved ✖️'}</span>
         </div>
       </div>
     );
@@ -56,7 +56,7 @@ export default function BookmarkAction({
 
   return (
     <>
-      <div className="tooltip" onClick={handleClick}>
+      <div className="tooltip tooltip-left" onClick={handleClick}>
         <div className="tooltip-content">
           <div className="-rotate-10 animate-bounce text-2xl font-black text-orange-400">
             {caption}
