@@ -7,11 +7,9 @@ type Props = {
   bookmark: Bookmark;
 };
 
-export default async function BookmarkCard({
-  bookmark,
-}: Props): Promise<ReactNode> {
+export default function BookmarkCard({ bookmark }: Props): ReactNode {
   return (
-    <div className="card bg-base-100 w-96 shadow-sm">
+    <div className="card bg-base-100 w-96 shadow-sm" key={bookmark.placeId}>
       <figure className="px-10 pt-10">
         <Image
           src={bookmark.picture ?? '/images/blank-place.webp'}
