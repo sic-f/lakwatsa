@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode, useState } from 'react';
+import Link from 'next/link';
 import { bookmark, unsave } from '@/actions/bookmark/bookmark';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
@@ -18,13 +19,26 @@ export default function BookmarkAction({
   const [bookmarkId, setBookmarkId] = useState<string | null>(savedPlaceId);
   const [isToast, setIsToast] = useState<boolean>(false);
 
+  function renderBookmarkAddedMessage() {
+    return;
+  }
+
   function renderToast() {
     setTimeout(() => setIsToast(false), 4000);
 
     return (
       <div className="toast z-1">
         <div className="alert alert-info">
-          <span>{bookmarkId ? 'Place saved 🔖' : 'Unsaved ✖️'}</span>
+          {bookmarkId ? (
+            <span>
+              Place saved 🔖. View in{' '}
+              <Link href="/bookmarks">
+                <u>bookmarks</u>
+              </Link>
+            </span>
+          ) : (
+            <span>Unsaved ✖️</span>
+          )}
         </div>
       </div>
     );

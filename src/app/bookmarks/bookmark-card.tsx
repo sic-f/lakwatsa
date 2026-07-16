@@ -27,7 +27,7 @@ export default function BookmarkCard({ bookmark }: Props): ReactNode {
             className="btn btn-primary"
             href={`/places/${bookmark.placeId}`}
           >
-            Go to place
+            View ➡️
           </Link>
         </div>
       </div>
