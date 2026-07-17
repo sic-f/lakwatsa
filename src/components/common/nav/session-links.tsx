@@ -8,7 +8,9 @@ export default async function SessionLinks(): Promise<ReactNode | undefined> {
   return (
     <div>
       <Link href="/register">Create Account</Link>
-      <Link href="/login" className="mx-8">Sign In</Link>
+      <Link href="/login" className="ml-3 sm:ml-6">
+        Sign In
+      </Link>
     </div>
   );
 }

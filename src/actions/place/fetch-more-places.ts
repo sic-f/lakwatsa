@@ -1,15 +1,20 @@
 'use server';
 
-import { Place } from "@/interfaces/place";
-import { catchSession } from "@/services/session/catch-session";
+import { Place } from '@/interfaces/place';
+import { catchSession } from '@/services/session/catch-session';
 
-export async function fetchMorePlaces(offset: string, noOfPlacesToFetch: number): Promise<Place[]> {
-  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/places?offset=${offset}&limit=${noOfPlacesToFetch}`;
+export async function fetchMorePlaces(
+  offset: string,
+  noOfPlacesToFetch: number,
+  broId: string,
+): Promise<Place[]> {
+  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/places?offset=${offset}&limit=${noOfPlacesToFetch}&broId=${broId}`;
 
   let response: Response = await fetch(url);
   response = await catchSession(response);
 
-  if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+  if (!response.ok)
+    throw new Error(`${response.status} ${response.statusText}`);
 
   return await response.json();
 }

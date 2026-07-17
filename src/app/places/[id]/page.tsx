@@ -13,7 +13,7 @@ export default async function PlaceDetails({
   const { id } = await params;
   const broId: string = (await getAccount()).id;
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${id}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/places/${id}?broId=${broId}`,
   );
   if (!response.ok)
     throw new Error(
