@@ -31,16 +31,6 @@ export default function Actions({
   return (
     <div className={className}>
       <div>
-        {isEditing && (
-          <button
-            className="btn btn-accent mr-2"
-            form="updateReview"
-            type="submit"
-            value="Post"
-          >
-            Post.
-          </button>
-        )}
         <button
           className="btn btn-secondary justify-end"
           onClick={handleClick}
@@ -48,6 +38,16 @@ export default function Actions({
         >
           {text}
         </button>
+        {isEditing && (
+          <button
+            className="btn btn-accent ml-2"
+            form="updateReview"
+            type="submit"
+            value="Post"
+          >
+            Post.
+          </button>
+        )}
       </div>
     </div>
   );
