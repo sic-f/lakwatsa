@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import Link from 'next/link';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -10,7 +11,7 @@ export default function AddReviewAction({
   setIsWritingReview,
 }: Props): ReactNode {
   function handleClick(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
   ): void {
     e.preventDefault();
 
@@ -19,10 +20,14 @@ export default function AddReviewAction({
 
   return (
     <div className="flex justify-end">
-      <button className="mr-2 mb-2 flex items-center" onClick={handleClick}>
+      <Link
+        href="#"
+        className="mr-2 mb-2 flex items-center"
+        onClick={handleClick}
+      >
         <FontAwesomeIcon icon={faPlus} className="mr-1 inline size-[1.2em]" />
         Add review
-      </button>
+      </Link>
     </div>
   );
 }
