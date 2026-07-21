@@ -33,7 +33,7 @@ export default function Reviews({ reviews, placeId, broId }: Props): ReactNode {
   }
 
   return (
-    <div>
+    <div className="w-96">
       <AddReviewAction setIsWritingReview={setIsWritingReview} />
       {isWritingReview ? (
         <WriteReview
@@ -43,7 +43,7 @@ export default function Reviews({ reviews, placeId, broId }: Props): ReactNode {
       ) : isEmpty(reviews) ? (
         <BlankReviews
           placeId={placeId}
-          isWritingReview={setIsWritingReview}
+          isWritingReview={isWritingReview}
           setIsWritingReview={setIsWritingReview}
         />
       ) : (

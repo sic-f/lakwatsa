@@ -9,24 +9,13 @@ export default function BlankReviews({
   setIsWritingReview,
 }: {
   placeId: string;
-  isWritingReview: Function;
+  isWritingReview: boolean;
   setIsWritingReview: Function;
 }): ReactNode {
   function handleClick(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault();
 
     setIsWritingReview(true);
-  }
-
-  function renderBlankReviews(): ReactNode {
-    return (
-      <>
-        <h3 className="mb-4 text-3xl">No reviews</h3>
-        <button className="btn btn-primary" onClick={handleClick}>
-          Add review
-        </button>
-      </>
-    );
   }
 
   return (
@@ -37,7 +26,7 @@ export default function BlankReviews({
           setIsWritingReview={setIsWritingReview}
         />
       ) : (
-        renderBlankReviews()
+        <h3 className="my-6 text-3xl">No reviews</h3>
       )}
     </div>
   );

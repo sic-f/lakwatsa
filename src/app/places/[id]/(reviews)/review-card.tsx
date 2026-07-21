@@ -27,7 +27,7 @@ export default function ReviewCard({
   return (
     <article className={className}>
       {!isEditing ? (
-        <Content content={review.content} />
+        <Content review={review} broId={broId} />
       ) : (
         <EditReview
           review={review}

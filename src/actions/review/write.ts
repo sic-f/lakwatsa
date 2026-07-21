@@ -18,6 +18,7 @@ export async function writeReview(
         Authorization: `Bearer ${await getToken()}`,
       }),
       body: JSON.stringify({
+        headline: formData.get('headline'),
         content: formData.get('content'),
         placeId: state?.placeId,
       }),

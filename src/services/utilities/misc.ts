@@ -2,10 +2,10 @@ import { PlacePicture } from '@/interfaces/place-picture';
 import { NIL as NIL_UUID } from 'uuid';
 import { isEmpty } from 'lodash';
 
-export function isBookmarkable(broId: string, placeOwnerId: string): boolean {
+export function isBookmarkable(broId: string, ownerId: string): boolean {
   if (broId === NIL_UUID) return false;
 
-  return broId !== placeOwnerId;
+  return broId !== ownerId;
 }
 
 export function isPlaceOwner(broId: string, placeOwnerId: string): boolean {

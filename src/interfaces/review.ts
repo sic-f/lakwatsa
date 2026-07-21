@@ -5,6 +5,7 @@ export interface Review {
   headline?: string;
   content: string;
   reviewerId: string;
+  bookmarkId: string;
   createdAt: Date;
 }
 
