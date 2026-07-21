@@ -25,3 +25,7 @@ export const PlaceError = {
 export const PlacePicture = {
   Caption: 'Caption',
 };
+
+export const Review = {
+  Content: 'Content',
+};

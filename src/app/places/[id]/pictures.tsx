@@ -18,7 +18,7 @@ export default async function Pictures({
   }
 
   return (
-    <section className="max-md:mt-10 sm:ml-10 lg:w-1/2">
+    <section className="sm:ml-10 lg:w-1/2">
       <div className="carousel w-full">
         {pictures.map((picture: PlacePicture, index: number) => {
           return (
