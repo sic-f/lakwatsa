@@ -26,7 +26,6 @@ export default async function PlaceDetails({
     );
 
   const place: Place = await response.json();
-
   const reviewsClassName = classnames({
     'my-10': !isEmpty(place.pictures),
     'mb-10': isEmpty(place.pictures),

@@ -25,7 +25,7 @@ export default function Reviews({ reviews, placeId, broId }: Props): ReactNode {
             review={review}
             key={review.id}
             broId={broId}
-            className="mb-4"
+            className="mb-10"
           />
         ))}
       </div>

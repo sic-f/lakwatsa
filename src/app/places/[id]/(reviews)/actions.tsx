@@ -16,7 +16,7 @@ export default function Actions({
 }: Props): ReactNode {
   if (isNotAllowedToEdit) return;
 
-  const text = isEditing ? 'Cancel.' : 'Edit.';
+  const text = isEditing ? 'Cancel' : 'Edit review';
   const className: string = classnames(
     'card-actions',
     'justify-end',
@@ -45,7 +45,7 @@ export default function Actions({
             type="submit"
             value="Post"
           >
-            Post.
+            Submit
           </button>
         )}
       </div>
