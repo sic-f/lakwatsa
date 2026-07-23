@@ -7,15 +7,26 @@ import BlankReviews from './blank-reviews';
 import ReviewCard from './review-card';
 import { Review } from '@/interfaces/review';
 import { isEmpty } from 'lodash';
+import classnames from 'classnames';
 
 type Props = {
   reviews: Review[];
   placeId: string;
   broId: string;
+  arePicturesEmpty: boolean;
 };
 
-export default function Reviews({ reviews, placeId, broId }: Props): ReactNode {
+export default function Reviews({
+  reviews,
+  placeId,
+  broId,
+  arePicturesEmpty,
+}: Props): ReactNode {
   const [isWritingReview, setIsWritingReview] = useState<boolean>(false);
+  const reviewsClassName = classnames({
+    'my-10': !arePicturesEmpty,
+    'mb-10': arePicturesEmpty,
+  });
 
   function renderReviews(): ReactNode {
     return (
@@ -33,7 +44,7 @@ export default function Reviews({ reviews, placeId, broId }: Props): ReactNode {
   }
 
   return (
-    <div className="w-96">
+    <section className={reviewsClassName}>
       <AddReviewAction setIsWritingReview={setIsWritingReview} />
       {isWritingReview ? (
         <WriteReview
@@ -49,6 +60,6 @@ export default function Reviews({ reviews, placeId, broId }: Props): ReactNode {
       ) : (
         renderReviews()
       )}
-    </div>
+    </section>
   );
 }
