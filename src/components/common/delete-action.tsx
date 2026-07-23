@@ -6,15 +6,19 @@ import DeleteConfirmation from '@/components/common/delete-confirmation';
 type Props = {
   id: string;
   pathname: string;
-  placeName: string;
+  deleteActionLabel: string;
+  headline: string;
+  prompt: string;
   onDelete: (id: string, pathname: string) => Promise<void>;
   classNames?: string;
 };
 
-export default function DeletePlaceAction({
+export default function DeleteAction({
   id,
   pathname,
-  placeName,
+  deleteActionLabel,
+  headline,
+  prompt,
   onDelete,
   classNames,
 }: Props): ReactNode {
@@ -27,15 +31,15 @@ export default function DeletePlaceAction({
   return (
     <>
       <button className={classNames} onClick={handleShowModal}>
-        Delete
+        {deleteActionLabel}
       </button>
       <DeleteConfirmation
         id={id}
         pathname={pathname}
         modalRef={modalRef}
         onDelete={onDelete}
-        headline="Delete Place"
-        prompt={`Are you sure you want to delete place "${placeName}"?`}
+        headline={headline}
+        prompt={prompt}
       />
     </>
   );

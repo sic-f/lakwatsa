@@ -8,8 +8,8 @@ export function isBookmarkable(broId: string, ownerId: string): boolean {
   return broId !== ownerId;
 }
 
-export function isPlaceOwner(broId: string, placeOwnerId: string): boolean {
-  return broId === placeOwnerId;
+export function isOwner(broId: string, ownerId: string): boolean {
+  return broId === ownerId;
 }
 
 export function isPlacePictureDeletable(
@@ -17,5 +17,5 @@ export function isPlacePictureDeletable(
   placeOwnerId: string,
   placePicture: PlacePicture,
 ): boolean {
-  return isPlaceOwner(broId, placeOwnerId) && !isEmpty(placePicture);
+  return isOwner(broId, placeOwnerId) && !isEmpty(placePicture);
 }

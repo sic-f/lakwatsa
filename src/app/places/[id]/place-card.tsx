@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import DeletePlaceAction from './delete-place-action';
+import DeleteAction from '@/components/common/delete-action';
 import DeletePictureAction from '@/components/common/place-picture/delete-picture-action';
 import BookmarkAction from '@/components/bookmark/bookmark-action';
 import { Place } from '@/interfaces/place';
@@ -9,7 +9,7 @@ import { PlacePicture } from '@/interfaces/place-picture';
 import { deletePlace } from '@/actions/place/delete';
 import { deletePicture } from '@/actions/picture/delete';
 import {
-  isPlaceOwner,
+  isOwner,
   isPlacePictureDeletable,
   isBookmarkable,
 } from '@/services/utilities/misc';
@@ -37,7 +37,7 @@ export default async function PlaceCard({
     return `/places/${place.id}/picture/${place.picture?.id}`;
   }
 
-  const isOperableByBro: boolean = isPlaceOwner(broId, place.broId);
+  const isOperableByBro: boolean = isOwner(broId, place.broId);
   const isPlaceBookmarkable: boolean = isBookmarkable(broId, place.broId);
   const isDeletable: boolean = isPlacePictureDeletable(
     broId,
@@ -132,10 +132,11 @@ export default async function PlaceCard({
             </Link>
           )}
           {isOperableByBro && (
-            <DeletePlaceAction
+            <DeleteAction
               id={place.id}
               pathname="/"
-              placeName={place.name}
+              headline="Delete Place"
+              prompt={`Are you sure you want to delete place "${place.name}"?`}
               onDelete={deletePlace}
               classNames="btn btn-error"
             />
