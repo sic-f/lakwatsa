@@ -19,3 +19,7 @@ export function isPlacePictureDeletable(
 ): boolean {
   return isOwner(broId, placeOwnerId) && !isEmpty(placePicture);
 }
+
+export function hasSession(broId: string): boolean {
+  return broId !== NIL_UUID;
+}

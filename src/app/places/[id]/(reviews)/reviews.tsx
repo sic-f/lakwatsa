@@ -6,6 +6,7 @@ import WriteReview from './write-review';
 import BlankReviews from './blank-reviews';
 import ReviewCard from './review-card';
 import { Review } from '@/interfaces/review';
+import { hasSession } from '@/services/utilities/misc';
 import { isEmpty } from 'lodash';
 import classnames from 'classnames';
 
@@ -43,22 +44,31 @@ export default function Reviews({
     );
   }
 
+  function renderReviewsHome(): ReactNode {
+    return isEmpty(reviews) ? (
+      <BlankReviews
+        placeId={placeId}
+        isWritingReview={isWritingReview}
+        setIsWritingReview={setIsWritingReview}
+      />
+    ) : (
+      renderReviews()
+    );
+  }
+
   return (
     <section className={reviewsClassName}>
-      <AddReviewAction setIsWritingReview={setIsWritingReview} />
+      <AddReviewAction
+        setIsWritingReview={setIsWritingReview}
+        hasSession={hasSession(broId)}
+      />
       {isWritingReview ? (
         <WriteReview
           placeId={placeId}
           setIsWritingReview={setIsWritingReview}
         />
-      ) : isEmpty(reviews) ? (
-        <BlankReviews
-          placeId={placeId}
-          isWritingReview={isWritingReview}
-          setIsWritingReview={setIsWritingReview}
-        />
       ) : (
-        renderReviews()
+        renderReviewsHome()
       )}
     </section>
   );

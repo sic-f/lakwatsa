@@ -135,6 +135,7 @@ export default async function PlaceCard({
             <DeleteAction
               id={place.id}
               pathname="/"
+              deleteActionLabel="Delete"
               headline="Delete Place"
               prompt={`Are you sure you want to delete place "${place.name}"?`}
               onDelete={deletePlace}
