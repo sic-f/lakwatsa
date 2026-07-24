@@ -5,6 +5,8 @@ import AddReviewAction from './add-review-action';
 import WriteReview from './write-review';
 import BlankReviews from './blank-reviews';
 import ReviewCard from './review-card';
+import Pagination from './pagination';
+import { fetchReviews } from '@/actions/review/fetch';
 import { Review } from '@/interfaces/review';
 import { hasSession } from '@/services/utilities/misc';
 import { isEmpty } from 'lodash';
@@ -14,20 +16,36 @@ type Props = {
   reviews: Review[];
   placeId: string;
   broId: string;
+  reviewsCount: number;
   arePicturesEmpty: boolean;
 };
 
+const NUMBER_OF_PLACES_TO_FETCH: number = 5;
+
 export default function Reviews({
-  reviews,
+  reviews: initialReviews,
   placeId,
   broId,
+  reviewsCount,
   arePicturesEmpty,
 }: Props): ReactNode {
+  const [reviews, setReviews] = useState<Review[]>(initialReviews);
   const [isWritingReview, setIsWritingReview] = useState<boolean>(false);
-  const reviewsClassName = classnames({
+  const reviewsClassName = classnames('lg:w-xl', {
     'my-10': !arePicturesEmpty,
     'mb-10': arePicturesEmpty,
   });
+  const numberOfPages = Math.ceil(reviewsCount / NUMBER_OF_PLACES_TO_FETCH);
+
+  async function handleClick(
+    i: number,
+    offset: number,
+    limit: number,
+  ): Promise<void> {
+    const reviews: Review[] = await fetchReviews(offset * i, limit);
+
+    setReviews(reviews);
+  }
 
   function renderReviews(): ReactNode {
     return (
@@ -70,6 +88,7 @@ export default function Reviews({
       ) : (
         renderReviewsHome()
       )}
+      <Pagination pages={numberOfPages} onClick={handleClick} />
     </section>
   );
 }

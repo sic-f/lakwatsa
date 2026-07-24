@@ -18,21 +18,19 @@ export default async function Pictures({
   }
 
   return (
-    <section className="sm:ml-10 lg:w-1/2">
-      <div className="carousel w-full">
-        {pictures.map((picture: PlacePicture, index: number) => {
-          return (
-            <ExtraPicture
-              url={picture.small}
-              detailsUrl={`/places/${picture.placeId}/picture/${picture.id}?slide=${index + 1}`}
-              key={picture.id}
-              slideNumber={index + 1}
-              previousSlide={getPreviousSlideValue(index, pictures.length)}
-              nextSlide={getNexSlideValue(index, pictures.length)}
-            />
-          );
-        })}
-      </div>
-    </section>
+    <div className="carousel w-full">
+      {pictures.map((picture: PlacePicture, index: number) => {
+        return (
+          <ExtraPicture
+            url={picture.small}
+            detailsUrl={`/places/${picture.placeId}/picture/${picture.id}?slide=${index + 1}`}
+            key={picture.id}
+            slideNumber={index + 1}
+            previousSlide={getPreviousSlideValue(index, pictures.length)}
+            nextSlide={getNexSlideValue(index, pictures.length)}
+          />
+        );
+      })}
+    </div>
   );
 }

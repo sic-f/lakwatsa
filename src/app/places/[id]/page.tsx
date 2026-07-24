@@ -26,17 +26,18 @@ export default async function PlaceDetails({
   const place: Place = await response.json();
 
   return (
-    <main className="flex flex-col items-center">
-      <div className="flex items-center justify-center py-10 max-sm:flex-col sm:pl-10 md:flex-row">
+    <main className="flex max-lg:flex-col max-lg:items-center lg:justify-around">
+      <div className="my-10">
         <PlaceCard place={place} broId={broId} />
         <MoreInformation place={place} />
       </div>
-      <div>
+      <div className="lg:my-10 lg:flex lg:w-4xl lg:flex-col lg:items-center">
         {!isEmpty(place.pictures) && <Pictures pictures={place.pictures} />}
         <Reviews
           reviews={place.reviews}
           placeId={place.id}
           broId={broId}
+          reviewsCount={place.reviewsCount}
           arePicturesEmpty={isEmpty(place.pictures)}
         />
       </div>

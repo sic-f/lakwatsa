@@ -18,7 +18,7 @@ export default function WriteReview({
   });
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="mb-10 flex items-center justify-center">
       {pending ? (
         <Loading />
       ) : (

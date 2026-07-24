@@ -11,7 +11,7 @@ export default async function MoreInformation({
   place,
 }: Props): Promise<ReactNode> {
   return (
-    <div className="card bg-base-200 mt-4 w-1/3 w-96 shadow-sm">
+    <div className="card bg-base-200 w-1/3 w-96 shadow-sm">
       <article className="card-body">
         <h2 className="card-title text-info cursor-default">
           More information

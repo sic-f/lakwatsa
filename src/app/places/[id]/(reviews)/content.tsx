@@ -44,7 +44,7 @@ export default function Content({ review, broId }: Props): ReactNode {
           </div>
           <ShowMore
             ref={ref}
-            lines={20}
+            lines={10}
             more={<Expand onClick={toggleLines} />}
             less={<Less onClick={toggleLines} />}
             className="text-accent whitespace-pre-wrap"

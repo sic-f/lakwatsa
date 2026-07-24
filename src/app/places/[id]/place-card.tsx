@@ -46,7 +46,7 @@ export default async function PlaceCard({
   );
 
   return (
-    <article className="card bg-base-100 w-96 shadow-sm sm:min-w-72 md:max-lg:min-w-80 xl:min-w-80">
+    <article className="card bg-base-100 mb-4 w-96 shadow-sm sm:min-w-72 md:max-lg:min-w-80 xl:min-w-80">
       <figure>
         <Link href={getPictureLink(place.picture)}>
           <Image
@@ -65,8 +65,9 @@ export default async function PlaceCard({
           </h2>
           {isPlaceBookmarkable && (
             <BookmarkAction
-              placeId={place.id}
+              saveableId={place.id}
               caption="Save me!😜"
+              saveableName="Place"
               bookmarkId={place.bookmarkId}
             />
           )}
