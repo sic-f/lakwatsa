@@ -38,6 +38,7 @@ export interface Place {
   facebook: string;
   instagram: string;
   bookmarkId: string;
+  reviewsCount: number;
   picture: PlacePicture;
   pictures: PlacePicture[];
   reviews: Review[];
