@@ -35,6 +35,15 @@ export default function Actions({
     setIsEditing(!isEditing);
   }
 
+  async function handleDelete(
+    id: string,
+    pathname: string,
+    modalRef: HTMLDialogElement,
+  ): Promise<void> {
+    await deleteReview(id, pathname, modalRef);
+    modalRef.current?.close();
+  }
+
   return (
     <div className={className}>
       {isDeletable && !isEditing && (
@@ -44,7 +53,7 @@ export default function Actions({
           deleteActionLabel={'Delete review'}
           headline={'Delete review'}
           prompt={'Are you sure you want to delete this review?'}
-          onDelete={deleteReview}
+          onDelete={handleDelete}
           classNames="btn btn-error"
         />
       )}

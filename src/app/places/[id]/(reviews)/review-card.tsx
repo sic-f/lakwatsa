@@ -1,5 +1,3 @@
-'use client';
-
 import { ReactNode, useState } from 'react';
 import Content from './content';
 import EditReview from './edit-review';

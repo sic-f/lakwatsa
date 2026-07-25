@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import AddReviewAction from './add-review-action';
 import WriteReview from './write-review';
 import BlankReviews from './blank-reviews';
@@ -13,7 +13,7 @@ import { isEmpty } from 'lodash';
 import classnames from 'classnames';
 
 type Props = {
-  reviews: Review[];
+  initialReviews: Review[];
   placeId: string;
   broId: string;
   reviewsCount: number;
@@ -23,7 +23,7 @@ type Props = {
 const NUMBER_OF_PLACES_TO_FETCH: number = 5;
 
 export default function Reviews({
-  reviews: initialReviews,
+  initialReviews,
   placeId,
   broId,
   reviewsCount,
@@ -36,6 +36,10 @@ export default function Reviews({
     'mb-10': arePicturesEmpty,
   });
   const numberOfPages = Math.ceil(reviewsCount / NUMBER_OF_PLACES_TO_FETCH);
+
+  useEffect(() => {
+    setReviews(initialReviews);
+  }, [initialReviews]);
 
   async function handleClick(
     i: number,

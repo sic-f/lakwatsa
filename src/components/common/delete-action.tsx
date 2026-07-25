@@ -9,7 +9,11 @@ type Props = {
   deleteActionLabel: string;
   headline: string;
   prompt: string;
-  onDelete: (id: string, pathname: string) => Promise<void>;
+  onDelete: (
+    id: string,
+    pathname: string,
+    modalRef: HTMLDialogElement,
+  ) => Promise<void>;
   classNames?: string;
 };
 
