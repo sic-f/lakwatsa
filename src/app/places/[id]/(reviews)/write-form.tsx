@@ -38,6 +38,7 @@ export default function WriteForm({
         <textarea
           className="textarea textarea-accent w-auto"
           name="content"
+          rows={10}
           defaultValue={form.content}
           placeholder="Write a review for this place"
         />
