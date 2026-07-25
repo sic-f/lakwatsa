@@ -1,6 +1,6 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 import { getToken } from '@/services/session';
 import { catchSession } from '@/services/session/catch-session';
 
@@ -24,5 +24,5 @@ export async function deleteReview(
   if (!response.ok)
     throw new Error(`${response.status} ${response.statusText}`);
 
-  revalidatePath(pathname);
+  redirect(pathname);
 }
