@@ -3,8 +3,11 @@
 import { getToken } from '@/services/session';
 import { catchSession } from '@/services/session/catch-session';
 
-export async function bookmark(placeId: string): Promise<string> {
-  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/saves`;
+export async function bookmark(
+  saveableId: string,
+  saveableUrl: string,
+): Promise<string> {
+  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${saveableUrl}`;
   async function options(): Promise<RequestInit> {
     return {
       method: 'POST',
@@ -12,7 +15,7 @@ export async function bookmark(placeId: string): Promise<string> {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${await getToken()}`,
       }),
-      body: JSON.stringify({ placeId }),
+      body: JSON.stringify({ saveableId }),
     };
   }
 

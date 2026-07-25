@@ -2,23 +2,28 @@
 
 import { ReactNode, useState } from 'react';
 import Link from 'next/link';
-import { bookmark, unsave } from '@/actions/bookmark/bookmark';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 
 type Props = {
   saveableId: string;
-  caption: string;
   saveableName: string;
+  caption: string;
   bookmarkId: string | null;
+  onBookmark: Function;
+  onUnsave: Function;
+  saveableUrl: string;
 };
 
 export default function BookmarkAction({
   saveableId,
-  caption,
   saveableName,
+  caption,
   bookmarkId: savedId,
+  onBookmark,
+  onUnsave,
+  saveableUrl,
 }: Props): ReactNode {
   const [bookmarkId, setBookmarkId] = useState<string | null>(savedId);
   const [isToast, setIsToast] = useState<boolean>(false);
@@ -48,11 +53,11 @@ export default function BookmarkAction({
     _event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ): Promise<undefined> {
     if (!bookmarkId) {
-      const id: string = await bookmark(saveableId);
+      const id: string = await onBookmark(saveableId, saveableUrl);
       setBookmarkId(id);
       setIsToast(true);
     } else {
-      await unsave(bookmarkId);
+      await onUnsave(bookmarkId);
       setBookmarkId(null);
       setIsToast(true);
     }
