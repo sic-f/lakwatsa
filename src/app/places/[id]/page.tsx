@@ -34,7 +34,7 @@ export default async function PlaceDetails({
       <div className="flex flex-col items-center lg:my-10 lg:w-4xl">
         {!isEmpty(place.pictures) && <Pictures pictures={place.pictures} />}
         <Reviews
-          reviews={place.reviews}
+          initialReviews={place.reviews}
           placeId={place.id}
           broId={broId}
           reviewsCount={place.reviewsCount}
