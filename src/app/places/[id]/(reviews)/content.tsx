@@ -37,7 +37,7 @@ export default function Content({ review, broId }: Props): ReactNode {
               <BookmarkAction
                 saveableId={review.id}
                 caption="Save review📝"
-                saveableName="Place"
+                saveableName="Review"
                 bookmarkId={review.bookmarkId}
               />
             )}
