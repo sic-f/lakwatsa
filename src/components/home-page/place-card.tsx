@@ -2,7 +2,6 @@ import { ReactNode, use } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import BookmarkAction from '../bookmark/bookmark-action';
-import { bookmark, unsave } from '@/actions/bookmark/bookmark';
 import { Place } from '@/interfaces/place';
 import { isBookmarkable } from '@/services/utilities/misc';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -39,8 +38,6 @@ export default function PlaceCard({
               saveableName="Place"
               caption="Save me!😜"
               bookmarkId={place.bookmarkId}
-              onBookmark={bookmark}
-              onUnsave={unsave}
               saveableUrl="saves"
             />
           )}
