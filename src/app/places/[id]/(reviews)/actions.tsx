@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import { useParams } from 'next/navigation';
 import DeleteAction from '@/components/common/delete-action';
 import { deleteReview } from '@/actions/review/delete';
-import { isOwner } from '@/services/utilities/misc';
 import classnames from 'classnames';
 
 type Props = {
