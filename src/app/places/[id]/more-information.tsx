@@ -17,10 +17,10 @@ export default async function MoreInformation({
           More information
         </h2>
         <ShowMore
-          lines={1}
+          lines={5}
           more={<Expand />}
           less={<Less />}
-          className="text-success"
+          className="text-success whitespace-pre-wrap"
         >
           <p className="text-accent cursor-default whitespace-pre-wrap">
             {place.information ?? 'no info'}
