@@ -31,7 +31,7 @@ export default function Reviews({
 }: Props): ReactNode {
   const [reviews, setReviews] = useState<Review[]>(initialReviews);
   const [isWritingReview, setIsWritingReview] = useState<boolean>(false);
-  const reviewsClassName = classnames('lg:w-xl', {
+  const reviewsClassName = classnames('w-96', 'lg:w-xl', {
     'my-10': !arePicturesEmpty,
     'mb-10': arePicturesEmpty,
   });
@@ -42,7 +42,7 @@ export default function Reviews({
     offset: number,
     limit: number,
   ): Promise<void> {
-    const reviews: Review[] = await fetchReviews(offset * i, limit);
+    const reviews: Review[] = await fetchReviews(offset * i, limit, placeId);
 
     setReviews(reviews);
   }
@@ -86,9 +86,11 @@ export default function Reviews({
           setIsWritingReview={setIsWritingReview}
         />
       ) : (
-        renderReviewsHome()
+        <>
+          {renderReviewsHome()}
+          <Pagination pages={numberOfPages} onClick={handleClick} />
+        </>
       )}
-      <Pagination pages={numberOfPages} onClick={handleClick} />
     </section>
   );
 }
