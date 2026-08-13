@@ -85,7 +85,7 @@ export default function Bookmarks(): ReactNode {
 
   function renderBookmarks() {
     return bookmarks.map((bookmark) => (
-      <BookmarkCard bookmark={bookmark} key={bookmark.placeId} />
+      <BookmarkCard bookmark={bookmark} key={bookmark.saveableId} />
     ));
   }
 

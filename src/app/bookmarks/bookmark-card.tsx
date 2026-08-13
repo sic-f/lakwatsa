@@ -9,7 +9,7 @@ type Props = {
 
 export default function BookmarkCard({ bookmark }: Props): ReactNode {
   return (
-    <div className="card bg-base-100 w-96 shadow-sm" key={bookmark.placeId}>
+    <div className="card bg-base-100 w-96 shadow-sm" key={bookmark.saveableId}>
       <figure className="px-10 pt-10">
         <Image
           src={bookmark.picture ?? '/images/blank-place.webp'}
@@ -20,12 +20,11 @@ export default function BookmarkCard({ bookmark }: Props): ReactNode {
         />
       </figure>
       <div className="card-body items-center text-center">
-        <h2 className="card-title">{bookmark.name}</h2>
-        <p>{bookmark.description}</p>
+        <h2 className="card-title">{bookmark.headline}</h2>
         <div className="card-actions">
           <Link
             className="btn btn-primary"
-            href={`/places/${bookmark.placeId}`}
+            href={`/places/${bookmark.saveableId}`}
           >
             View ➡️
           </Link>

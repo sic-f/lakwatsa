@@ -1,7 +1,6 @@
 export interface Bookmark {
-  placeId: string;
-  name: string;
-  description: string;
+  saveableId: string;
+  headline: string;
   picture: string;
   createdAt: Date;
 }
