@@ -1,6 +1,7 @@
 import { ReactNode, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Bookmark as Saved } from '@/constants/bookmark';
 import { Bookmark } from '@/interfaces/bookmark';
 import { ShowMoreRef, Truncate } from '@re-dev/react-truncate';
 
@@ -17,6 +18,8 @@ export default function BookmarkCard({ bookmark }: Props): ReactNode {
     ref.current?.toggleLines(e);
   }
 
+  const imageWidth: number = bookmark.kind === Saved.Place ? 400 : 150;
+
   return (
     <div
       className="card bg-base-100 shadow-sm sm:w-96"
@@ -25,7 +28,7 @@ export default function BookmarkCard({ bookmark }: Props): ReactNode {
       <figure className="px-10 pt-10">
         <Image
           src={bookmark.picture ?? '/images/blank-place.webp'}
-          width={200}
+          width={imageWidth}
           height={0}
           alt="Shoes"
           className="rounded-xl"
