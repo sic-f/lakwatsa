@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, use, useEffect, useState } from 'react';
-import BookmarkCard from './bookmark-card';
+import Bookmarks from './bookmarks';
 import { HttpStatusCode } from '@/constants/http-status-codes';
 import { Bookmark } from '@/interfaces/bookmark';
 import { getToken } from '@/services/session';
@@ -13,7 +13,7 @@ import dayjs from 'dayjs';
 
 const NUMBER_OF_BOOKMARKS_TO_FETCH = 5;
 
-export default function Bookmarks(): ReactNode {
+export default function BookmarksIndex(): ReactNode {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   const [offset, setOffset] = useState<Date>();
   const [fetchedAllBookmarks, setFetchedAllBookmarks] =
@@ -83,17 +83,15 @@ export default function Bookmarks(): ReactNode {
     };
   }, [inView]);
 
-  function renderBookmarks() {
-    return bookmarks.map((bookmark) => (
-      <BookmarkCard bookmark={bookmark} key={bookmark.saveableId} />
-    ));
-  }
-
   return (
     <main className="flex flex-col items-center">
-      <h1 className="my-2 text-4xl">Saved places</h1>
+      <h1 className="my-6 text-4xl">Saves</h1>
       <section className="flex gap-2 max-sm:flex-col sm:flex-wrap sm:justify-center md:gap-4">
-        {isEmpty(bookmarks) ? 'No saved places 📥' : renderBookmarks()}
+        {isEmpty(bookmarks) ? (
+          'No saved places 📥'
+        ) : (
+          <Bookmarks bookmarks={bookmarks} />
+        )}
       </section>
       {!isEmpty(bookmarks) && <div ref={ref}></div>}
     </main>

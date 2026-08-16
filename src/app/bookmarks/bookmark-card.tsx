@@ -2,13 +2,7 @@ import { ReactNode, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Bookmark } from '@/interfaces/bookmark';
-import {
-  MiddleTruncate,
-  ShowMore,
-  ShowMoreRef,
-  Truncate,
-} from '@re-dev/react-truncate';
-import { Expand, Less } from '@/components/common/truncate-client';
+import { ShowMoreRef, Truncate } from '@re-dev/react-truncate';
 
 type Props = {
   bookmark: Bookmark;
@@ -24,7 +18,10 @@ export default function BookmarkCard({ bookmark }: Props): ReactNode {
   }
 
   return (
-    <div className="card bg-base-100 w-96 shadow-sm" key={bookmark.saveableId}>
+    <div
+      className="card bg-base-100 shadow-sm sm:w-96"
+      key={bookmark.saveableId}
+    >
       <figure className="px-10 pt-10">
         <Image
           src={bookmark.picture ?? '/images/blank-place.webp'}
