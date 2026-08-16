@@ -38,7 +38,7 @@ export default function PlaceCard({
               saveableName="Place"
               caption="Save me!😜"
               bookmarkId={place.bookmarkId}
-              saveableUrl="saves"
+              saveableUrl="saveds"
             />
           )}
         </div>

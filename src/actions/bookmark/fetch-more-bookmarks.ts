@@ -8,7 +8,7 @@ export async function fetchMoreBookmarks(
   offset: string,
   noOfBookmarksToFetch: number,
 ): Promise<Bookmark[]> {
-  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/saves?offset=${offset}&limit=${noOfBookmarksToFetch}`;
+  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/saveds?offset=${offset}&limit=${noOfBookmarksToFetch}`;
   async function options(): Promise<RequestInit> {
     return {
       headers: new Headers({ Authorization: `Bearer ${await getToken()}` }),

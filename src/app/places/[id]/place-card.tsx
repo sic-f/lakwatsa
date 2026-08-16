@@ -69,7 +69,7 @@ export default async function PlaceCard({
               caption="Save me!😜"
               saveableName="Place"
               bookmarkId={place.bookmarkId}
-              saveableUrl="saves"
+              saveableUrl="saveds"
             />
           )}
           {isDeletable && (
