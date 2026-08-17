@@ -30,7 +30,7 @@ export default function BookmarksIndex(): ReactNode {
 
     async function fetchBookmarks() {
       if (isEmpty(bookmarks)) {
-        const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/saves?offset=${new Date().toISOString()}&limit=${NUMBER_OF_BOOKMARKS_TO_FETCH}`;
+        const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/saveds?offset=${new Date().toISOString()}&limit=${NUMBER_OF_BOOKMARKS_TO_FETCH}`;
         async function options(): Promise<RequestInit> {
           return {
             headers: new Headers({

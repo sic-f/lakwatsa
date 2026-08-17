@@ -3,6 +3,7 @@ import BookmarkCard from './bookmark-card';
 import { Bookmark } from '@/interfaces/bookmark';
 import { isEmpty } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 type Props = {
   bookmarks: Bookmark[];
