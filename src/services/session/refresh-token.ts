@@ -11,9 +11,10 @@ export async function refreshToken(): Promise<void> {
       method: 'POST',
       headers: new Headers({ 'Content-Type': 'application/json' }),
       body: JSON.stringify(await getRefreshToken()),
-    });
+    },
+  );
 
-  if (isRefreshTokenExpired(response)) {
+  if (await isRefreshTokenExpired(response.status)) {
     await endSession();
 
     redirect('/expired');
@@ -26,6 +27,6 @@ export async function refreshToken(): Promise<void> {
   }
 }
 
-function isRefreshTokenExpired(response: Response) {
-  return response.status === HttpStatusCode.Unauthorized;
+export async function isRefreshTokenExpired(status: number) {
+  return status === HttpStatusCode.Unauthorized;
 }

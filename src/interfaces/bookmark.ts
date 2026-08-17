@@ -5,3 +5,7 @@ export interface Bookmark {
   kind: string;
   createdAt: Date;
 }
+
+export interface BookmarkRoutes {
+  [key: string]: string;
+}

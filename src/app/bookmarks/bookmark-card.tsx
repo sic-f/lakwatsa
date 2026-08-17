@@ -1,23 +1,15 @@
-import { ReactNode, useRef } from 'react';
+import { ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Bookmark as Saved } from '@/constants/bookmark';
 import { Bookmark } from '@/interfaces/bookmark';
-import { ShowMoreRef, Truncate } from '@re-dev/react-truncate';
+import { Truncate } from '@re-dev/react-truncate';
 
 type Props = {
   bookmark: Bookmark;
 };
 
 export default function BookmarkCard({ bookmark }: Props): ReactNode {
-  const ref = useRef<ShowMoreRef>(null);
-
-  function toggleLines(
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-  ): ShowMoreToggleLinesFn {
-    ref.current?.toggleLines(e);
-  }
-
   const imageWidth: number = bookmark.kind === Saved.Place ? 400 : 150;
 
   return (

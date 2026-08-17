@@ -7,8 +7,9 @@ import { catchSession } from '@/services/session/catch-session';
 export async function fetchMoreBookmarks(
   offset: string,
   noOfBookmarksToFetch: number,
+  routePath: string,
 ): Promise<Bookmark[]> {
-  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/saveds?offset=${offset}&limit=${noOfBookmarksToFetch}`;
+  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${routePath}?offset=${offset}&limit=${noOfBookmarksToFetch}`;
   async function options(): Promise<RequestInit> {
     return {
       headers: new Headers({ Authorization: `Bearer ${await getToken()}` }),
