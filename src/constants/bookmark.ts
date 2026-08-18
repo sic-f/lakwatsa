@@ -4,6 +4,7 @@ export const Bookmark = {
   All: 'All',
   Place: 'SavedPlace',
   Review: 'SavedReview',
+  BlankAvatar: '/images/blank-place.webp',
 };
 
 export const BookmarkRoutes: BookmarkRoutesShape = {
