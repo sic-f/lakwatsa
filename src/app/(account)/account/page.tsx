@@ -1,17 +1,17 @@
 import Avatar from './avatar';
 import Form from './form';
 import PasswordForm from './password-form';
+import { BlankAvatar } from '@/constants/blank-avatar';
 import { AccountProfile } from '@/interfaces/account';
 import { getAccount, broName } from '@/services/identity';
-import { AccountProfile as Account } from '@/constants/account-profile';
 
 export default async function Profile() {
   const account: AccountProfile = await getAccount();
 
   function avatarImage(): string {
-    return account.avatar === '' ? Account.BlankAvatar : account.avatar!;
+    return account.avatar === '' ? BlankAvatar.Account : account.avatar!;
   }
-  
+
   return (
     <div className="flex justify-center">
       <div className="card card-side bg-base-100 shadow-sm">

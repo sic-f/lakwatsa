@@ -4,6 +4,7 @@ import Image from 'next/image';
 import DeleteAction from '@/components/common/delete-action';
 import DeletePictureAction from '@/components/common/place-picture/delete-picture-action';
 import BookmarkAction from '@/components/bookmark/bookmark-action';
+import { BlankAvatar } from '@/constants/blank-avatar';
 import { Place } from '@/interfaces/place';
 import { PlacePicture } from '@/interfaces/place-picture';
 import { deletePlace } from '@/actions/place/delete';
@@ -50,7 +51,7 @@ export default async function PlaceCard({
       <figure>
         <Link href={getPictureLink(place.picture)}>
           <Image
-            src={place.picture?.small ?? '/images/blank-place.webp'}
+            src={place.picture?.small ?? BlankAvatar.Place}
             width={384}
             height={0}
             loading="eager"
