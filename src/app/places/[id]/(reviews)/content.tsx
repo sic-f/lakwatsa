@@ -48,7 +48,7 @@ export default function Content({ review, broId }: Props): ReactNode {
             lines={10}
             more={<Expand onClick={toggleLines} />}
             less={<Less onClick={toggleLines} />}
-            className="text-accent whitespace-pre-wrap"
+            preserveMarkup
           >
             <p className="text-info cursor-default whitespace-pre-wrap">
               {review.content}
