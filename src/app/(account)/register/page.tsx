@@ -80,7 +80,7 @@ export default function CreateAccount() {
             kapwa gala 😜
           </p>
           <p>
-            (Why not join and submit places you know, to benefit other
+            (Why not join and submit places you've been to, to benefit other
             travellers 🚤)
           </p>
         </div>

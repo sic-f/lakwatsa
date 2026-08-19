@@ -45,13 +45,13 @@ export default function ReviewModal({ id, modalRef }: Props): ReactNode {
     >
       <div className="modal-box text-justify">
         <Content review={review} broId={NIL_UUID} />
-        <div className="flex justify-end gap-2">
+        <div className="flex items-baseline justify-end gap-2 underline">
           <div className="modal-action">
             <Link
               href={`/places/${review.placeId}`}
-              className="btn text-accent"
+              className="text-accent text-xs"
             >
-              Go to place
+              Go to place with this review
             </Link>
           </div>
           <div className="modal-action">
