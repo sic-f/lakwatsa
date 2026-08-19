@@ -1,5 +1,3 @@
-'use client';
-
 import { ReactNode } from 'react';
 import Tab from './tab';
 import {
@@ -8,9 +6,7 @@ import {
   faStarHalfStroke,
 } from '@fortawesome/free-solid-svg-icons';
 
-const NUMBER_OF_BOOKMARKS_TO_FETCH = 5;
-
-export default function BookmarksIndex(): ReactNode {
+export default async function BookmarksIndex(): Promise<ReactNode> {
   return (
     <main className="flex flex-col items-center">
       <h1 className="my-6 text-4xl">Saves</h1>
