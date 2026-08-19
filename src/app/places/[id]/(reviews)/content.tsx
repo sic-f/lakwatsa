@@ -2,6 +2,8 @@
 
 import { ReactNode, useRef } from 'react';
 import { Expand, Less } from '@/components/common/truncate-client';
+import Timestamps from '@/components/common/timestamps';
+import Author from './author';
 import BookmarkAction from '@/components/bookmark/bookmark-action';
 import { Review } from '@/interfaces/review';
 import { isBookmarkable } from '@/services/utilities/misc';
@@ -32,7 +34,17 @@ export default function Content({ review, broId }: Props): ReactNode {
       <div className="card bg-base-100">
         <div className="card-body">
           <div className="flex justify-between">
-            <h3 className="text-lg">{review.headline}</h3>
+            <div>
+              <h3 className="cursor-default text-lg">{review.headline}</h3>
+              <Timestamps
+                createdAt={review.createdAt}
+                lastModified={review.lastModified}
+              />
+              <Author
+                name={review.reviewer}
+                nameClassName="text-xs text-accent italic"
+              />
+            </div>
             {isReviewBookmarkable && (
               <BookmarkAction
                 saveableId={review.id}
