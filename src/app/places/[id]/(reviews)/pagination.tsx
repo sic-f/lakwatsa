@@ -10,16 +10,25 @@ const NUMBER_OF_PLACES_TO_FETCH = 5;
 const OFFSET = 5;
 
 export default function Pagination({ pages, onClick }: Props): ReactNode {
-  function renderPaginationNumbers(): ReactNode {
-    const [isActive, setIsActive] = useState<boolean>(true);
-    const className = classNames('join-item btn', { 'btn-active': isActive });
+  const [selectedPage, setSelectedPage] = useState<string>('page-0');
 
+  function className(index: string): string {
+    return classNames('join-item btn', {
+      'btn-active': selectedPage === index,
+    });
+  }
+
+  function renderPaginationNumbers(): ReactNode {
     let elements: React.JSX.Element[] = [];
     for (let i: number = 0; i < pages; i++) {
       elements.push(
         <button
-          className={className}
-          onClick={() => onClick(i, OFFSET, NUMBER_OF_PLACES_TO_FETCH)}
+          id={`page-${i}`}
+          className={className(`page-${i}`)}
+          onClick={(e) => {
+            setSelectedPage(e.currentTarget.id);
+            onClick(i, OFFSET, NUMBER_OF_PLACES_TO_FETCH);
+          }}
           key={i}
         >
           {i + 1}
