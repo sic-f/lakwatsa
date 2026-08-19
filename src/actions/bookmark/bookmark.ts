@@ -34,7 +34,7 @@ export async function bookmark(
 }
 
 export async function unsave(bookmarkId: string): Promise<undefined> {
-  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/saves/${bookmarkId}`;
+  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/saveds/${bookmarkId}`;
   async function options(): Promise<RequestInit> {
     return {
       method: 'DELETE',
