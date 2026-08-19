@@ -7,6 +7,7 @@ export interface Review {
   reviewer: string;
   reviewerId: string;
   bookmarkId: string;
+  placeId?: string;
   createdAt: Date;
   lastModified: Date;
 }

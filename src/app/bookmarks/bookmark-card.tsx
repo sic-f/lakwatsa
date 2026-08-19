@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import Action from './action';
 import { Bookmark as Saved } from '@/constants/bookmark';
 import { BlankAvatar } from '@/constants/blank-avatar';
 import { Bookmark } from '@/interfaces/bookmark';
@@ -44,14 +44,7 @@ export default function BookmarkCard({ bookmark }: Props): ReactNode {
         <Truncate lines={4} preserveMarkup>
           <h2 className="card-title">{bookmark.headline}</h2>
         </Truncate>
-        <div className="card-actions">
-          <Link
-            className="btn btn-primary"
-            href={`/places/${bookmark.saveableId}`}
-          >
-            View ➡️
-          </Link>
-        </div>
+        <Action kind={bookmark.kind} saveableId={bookmark.saveableId} />
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import { ReactNode, useEffect, useState } from 'react';
 import BookmarkCard from './bookmark-card';
 import { BookmarkRoutes } from '@/constants/bookmark';
