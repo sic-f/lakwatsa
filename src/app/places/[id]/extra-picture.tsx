@@ -20,7 +20,7 @@ export default async function ExtraPicture({
   return (
     <div className="carousel-item relative w-full">
       <Link href={deatilsUrl} title="🏞 Click to view full size">
-        <Image src={url} width={800} height={600} alt="extra picture" />
+        <Image src={url} width={896} height={600} alt="extra picture" />
       </Link>
       <div
         id={`slide${slideNumber}`}

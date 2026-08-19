@@ -1,8 +1,8 @@
 'use client';
 
 import { useActionState, useEffect, useState } from 'react';
-import Image from "next/image";
-import { AccountProfile } from '@/constants/account-profile';
+import Image from 'next/image';
+import { BlankAvatar } from '@/constants/blank-avatar';
 import { deleteAvatar, updateAvatar } from '@/actions/account/update';
 
 export default function Avatar({ avatar }: { avatar: string }) {
@@ -14,7 +14,7 @@ export default function Avatar({ avatar }: { avatar: string }) {
   }
 
   function isBlankAvatar() {
-    return avatar === AccountProfile.BlankAvatar;
+    return avatar === BlankAvatar.Account;
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -31,13 +31,17 @@ export default function Avatar({ avatar }: { avatar: string }) {
     await deleteAvatar();
   }
 
-  useEffect(() => { setSelectedAvatar(null); }, [avatar])
+  useEffect(() => {
+    setSelectedAvatar(null);
+  }, [avatar]);
 
   return (
     <section>
       <form action={action}>
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-          {account?.message && <p className="text-green-400">{account?.message}</p>}
+          {account?.message && (
+            <p className="text-green-400">{account?.message}</p>
+          )}
           {account?.errors && <p className="text-red-400">{account?.errors}</p>}
           <figure className="mb-2">
             <Image
@@ -45,13 +49,32 @@ export default function Avatar({ avatar }: { avatar: string }) {
               width={304}
               height={171}
               loading="eager"
-              alt='avatar' />
+              alt="avatar"
+            />
           </figure>
           <section className="flex">
-            <input type="file" name="avatar" className="file-input file-input-success mr-2" onChange={handleChange} />
+            <input
+              type="file"
+              name="avatar"
+              className="file-input file-input-success mr-2"
+              onChange={handleChange}
+            />
           </section>
-          <button className="btn btn-primary mt-2" type="submit" disabled={isUpdatingAvatar()}>Update avatar</button>
-          <button className="btn btn-warning" type="button" onClick={handleDelete} disabled={isBlankAvatar()}>Remove avatar</button>
+          <button
+            className="btn btn-primary mt-2"
+            type="submit"
+            disabled={isUpdatingAvatar()}
+          >
+            Update avatar
+          </button>
+          <button
+            className="btn btn-warning"
+            type="button"
+            onClick={handleDelete}
+            disabled={isBlankAvatar()}
+          >
+            Remove avatar
+          </button>
         </fieldset>
       </form>
     </section>

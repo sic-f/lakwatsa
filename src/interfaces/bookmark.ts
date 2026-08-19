@@ -1,7 +1,11 @@
 export interface Bookmark {
-  placeId: string;
-  name: string;
-  description: string;
+  saveableId: string;
+  headline: string;
   picture: string;
+  kind: string;
   createdAt: Date;
+}
+
+export interface BookmarkRoutes {
+  [key: string]: string;
 }

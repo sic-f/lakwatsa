@@ -34,9 +34,11 @@ export default function PlaceCard({
           </h2>
           {isBookmarkable(broId, place.broId) && (
             <BookmarkAction
-              placeId={place.id}
+              saveableId={place.id}
+              saveableName="Place"
               caption="Save me!😜"
               bookmarkId={place.bookmarkId}
+              saveableUrl="saveds"
             />
           )}
         </div>

@@ -3,7 +3,7 @@
 import { ReactNode, useActionState } from 'react';
 import BackAction from '../../submit/back-action';
 import Form from './form';
-import Loading from '../../submit/submitting-indicator';
+import Loading from '@/components/common/submitting-indicator';
 import { PlaceForm } from '@/interfaces/place';
 import { update } from '@/actions/place/update';
 

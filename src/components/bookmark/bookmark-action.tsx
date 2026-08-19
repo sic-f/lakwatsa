@@ -7,21 +7,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/free-solid-svg-icons';
 
-export default function BookmarkAction({
-  placeId,
-  caption,
-  bookmarkId: savedPlaceId,
-}: {
-  placeId: string;
+type Props = {
+  saveableId: string;
+  saveableName: string;
   caption: string;
   bookmarkId: string | null;
-}): ReactNode {
-  const [bookmarkId, setBookmarkId] = useState<string | null>(savedPlaceId);
-  const [isToast, setIsToast] = useState<boolean>(false);
+  saveableUrl: string;
+};
 
-  function renderBookmarkAddedMessage() {
-    return;
-  }
+export default function BookmarkAction({
+  saveableId,
+  saveableName,
+  caption,
+  bookmarkId: savedId,
+  saveableUrl,
+}: Props): ReactNode {
+  const [bookmarkId, setBookmarkId] = useState<string | null>(savedId);
+  const [isToast, setIsToast] = useState<boolean>(false);
 
   function renderToast() {
     setTimeout(() => setIsToast(false), 4000);
@@ -31,7 +33,7 @@ export default function BookmarkAction({
         <div className="alert alert-info">
           {bookmarkId ? (
             <span>
-              Place saved 🔖. View in{' '}
+              {saveableName} saved 🔖. View in{' '}
               <Link href="/bookmarks">
                 <u>bookmarks</u>
               </Link>
@@ -48,7 +50,7 @@ export default function BookmarkAction({
     _event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ): Promise<undefined> {
     if (!bookmarkId) {
-      const id: string = await bookmark(placeId);
+      const id: string = await bookmark(saveableId, saveableUrl);
       setBookmarkId(id);
       setIsToast(true);
     } else {

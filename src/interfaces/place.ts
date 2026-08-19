@@ -1,5 +1,6 @@
 import { Error } from '@/interfaces/error';
 import { PlacePicture } from './place-picture';
+import { Review } from './review';
 
 export interface PlaceForm {
   id?: string;
@@ -37,8 +38,10 @@ export interface Place {
   facebook: string;
   instagram: string;
   bookmarkId: string;
+  reviewsCount: number;
   picture: PlacePicture;
   pictures: PlacePicture[];
+  reviews: Review[];
   broId: string;
   createdAt: Date;
 }

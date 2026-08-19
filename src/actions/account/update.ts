@@ -1,6 +1,6 @@
 'use server';
 
-import { AccountProfile } from '@/constants/account-profile';
+import { BlankAvatar } from '@/constants/blank-avatar';
 import { Error as AccountError } from '@/interfaces/error';
 import { AccountProfileForm } from '@/interfaces/account';
 import { getAccount } from '@/services/identity';
@@ -106,7 +106,7 @@ export async function deleteAvatar(): Promise<{
 
     await setSession(token);
 
-    return { message: 'Deleted avatar.', avatar: AccountProfile.BlankAvatar };
+    return { message: 'Deleted avatar.', avatar: BlankAvatar.Account };
   } else {
     throw new Error('Error deleting avatar.');
   }

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { AccountProfile } from '@/constants/account-profile';
+import { BlankAvatar } from '@/constants/blank-avatar';
 import { isEmptySession } from '@/services/session';
 import { getAccount } from '@/services/identity';
 import { logout } from '@/actions/account/authentication';
@@ -11,7 +11,7 @@ export default async function AccountLinks(): Promise<ReactNode | undefined> {
 
   async function getAvatar() {
     const avatar = (await getAccount()).avatar;
-    return avatar === '' ? AccountProfile.BlankThumb : avatar;
+    return avatar === '' ? BlankAvatar.AccountThumb : avatar;
   }
 
   return (
