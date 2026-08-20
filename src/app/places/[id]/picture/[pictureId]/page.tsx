@@ -3,8 +3,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import TopActions from './top-actions';
 import Caption from './caption';
+import Comments from './(comments)/index';
+import { BlankAvatar } from '@/constants/blank-avatar';
 import { PlacePicture } from '@/interfaces/place-picture';
 import { getAccount } from '@/services/identity';
+import { hasSession } from '@/services/session';
 import { isEmpty } from 'lodash';
 
 export default async function Picture({
@@ -16,7 +19,8 @@ export default async function Picture({
 }): Promise<ReactNode> {
   const { pictureId } = await params;
   const { slide } = await searchParams;
-  const broId: string = (await getAccount()).id;
+  const account = await getAccount();
+  const broId: string = account.id;
 
   function getQueryParameter(slide: string): string {
     if (isEmpty(slide)) return '';
@@ -26,6 +30,10 @@ export default async function Picture({
 
   function isDeletable(): boolean {
     return broId == picture.uploaderId;
+  }
+
+  function getAvatar(): string {
+    return isEmpty(account.avatar) ? BlankAvatar.Default : account.avatar;
   }
 
   const response = await fetch(
@@ -38,7 +46,6 @@ export default async function Picture({
     );
 
   const picture: PlacePicture = await response.json();
-
   return (
     <section className="flex justify-center">
       <div className="flex flex-col items-center py-6 lg:w-3/4">
@@ -62,6 +69,13 @@ export default async function Picture({
           />
         </Link>
         <Caption picture={picture} broId={(await getAccount()).id} />
+        {(await hasSession()) && (
+          <Comments
+            avatar={getAvatar()}
+            pictureId={picture.id}
+            placeId={picture.placeId}
+          />
+        )}
       </div>
     </section>
   );
