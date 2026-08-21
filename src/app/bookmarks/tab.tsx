@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import BookmarkCard from './bookmark-card';
 import { BookmarkRoutes } from '@/constants/bookmark';
 import { Bookmark } from '@/interfaces/bookmark';
-import { fetchMoreBookmarks } from '@/actions/bookmark/fetch-more-bookmarks';
+import { fetchMore } from '@/actions/bookmark/fetch-more';
 import { getToken } from '@/services/session';
 import {
   refreshToken,
@@ -65,11 +65,12 @@ export default function Tab({ section, icon, selected }: Props): ReactNode {
       }
 
       if (inView) {
-        const moreBookmarks: Bookmark[] = await fetchMoreBookmarks(
-          dayjs(offset).toISOString(),
-          NUMBER_OF_BOOKMARKS_TO_FETCH,
-          BookmarkRoutes[section],
-        );
+        const moreBookmarks: Bookmark[] = await fetchMore({
+          offset: dayjs(offset).toISOString(),
+          limit: NUMBER_OF_BOOKMARKS_TO_FETCH,
+          routePath: BookmarkRoutes[section],
+          authorize: true,
+        });
 
         if (isEmpty(moreBookmarks)) {
           setFetchedAllBookmarks(true);

@@ -24,7 +24,6 @@ export default function CommentForm({
     pictureId: pictureId,
     placeId: placeId,
   });
-
   return (
     <form action={action}>
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">

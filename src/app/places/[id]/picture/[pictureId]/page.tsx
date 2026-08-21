@@ -7,7 +7,6 @@ import Comments from './(comments)/index';
 import { BlankAvatar } from '@/constants/blank-avatar';
 import { PlacePicture } from '@/interfaces/place-picture';
 import { getAccount } from '@/services/identity';
-import { hasSession } from '@/services/session';
 import { isEmpty } from 'lodash';
 
 export default async function Picture({
@@ -69,13 +68,11 @@ export default async function Picture({
           />
         </Link>
         <Caption picture={picture} broId={(await getAccount()).id} />
-        {(await hasSession()) && (
-          <Comments
-            avatar={getAvatar()}
-            pictureId={picture.id}
-            placeId={picture.placeId}
-          />
-        )}
+        <Comments
+          avatar={getAvatar()}
+          pictureId={picture.id}
+          placeId={picture.placeId}
+        />
       </div>
     </section>
   );
