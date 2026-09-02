@@ -14,7 +14,7 @@ export default async function BrandLogo(): Promise<ReactNode> {
           width={72}
           height={48}
           alt="Brand logo"
-          className="mr-2 inline"
+          className="mr-2 inline w-auto"
         />
       </Link>
     </div>

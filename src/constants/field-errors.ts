@@ -29,3 +29,7 @@ export const PlacePicture = {
 export const Review = {
   Content: 'Content',
 };
+
+export const CommentError = {
+  Body: 'Body',
+};
