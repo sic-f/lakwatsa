@@ -19,11 +19,7 @@ export default function CommentForm({
   pictureId,
   placeId,
 }: Props): ReactNode {
-  const [form, action, pending] = useActionState(write, {
-    body: '',
-    pictureId: pictureId,
-    placeId: placeId,
-  });
+  const [form, action, pending] = useActionState(write, undefined);
   return (
     <form action={action}>
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
@@ -42,19 +38,23 @@ export default function CommentForm({
               placeholder="Write a public comment..."
             />
             <FieldError
-              errors={form.errors}
+              errors={form?.errors}
               field={CommentError.Body}
               className="mt-2 ml-2"
             />
           </div>
         </div>
-        <button className="flex justify-end" type="submit">
-          <FontAwesomeIcon
-            icon={faSquareArrowUpRight}
-            className="size-[1.2rem] cursor-pointer"
-          />
-        </button>
+        <div className="flex justify-end">
+          <button type="submit">
+            <FontAwesomeIcon
+              icon={faSquareArrowUpRight}
+              className="size-[1.2rem] cursor-pointer"
+            />
+          </button>
+        </div>
       </fieldset>
+      <input type="hidden" value={placeId} name="placeId" />
+      <input type="hidden" value={pictureId} name="pictureId" />
     </form>
   );
 }

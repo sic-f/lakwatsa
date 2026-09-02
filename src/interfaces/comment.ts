@@ -11,8 +11,6 @@ export interface Comment {
 
 export interface CommentForm {
   body: string;
-  pictureId: string;
-  placeId: string;
   errors?: Error;
   message?: string;
 }

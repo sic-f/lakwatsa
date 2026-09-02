@@ -6,10 +6,10 @@ import { getToken } from '@/services/session';
 import { catchSession } from '@/services/session/catch-session';
 
 export async function write(
-  state: CommentForm,
+  _: unknown,
   formData: FormData,
-): Promise<CommentForm> {
-  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/place-pictures/${state.pictureId}/comments`;
+): Promise<CommentForm | undefined> {
+  const url: string = `${process.env.NEXT_PUBLIC_API_BASE_URL}/place-pictures/${getPictureId(formData)}/comments`;
   async function options(): Promise<RequestInit> {
     return {
       method: 'POST',
@@ -28,18 +28,20 @@ export async function write(
     const data = await response.json();
 
     return {
-      pictureId: state.pictureId,
-      placeId: state.placeId,
       body: formData.get('body')?.toString()!,
       errors: data.errors,
     };
   }
 
-  revalidatePath('/places/${placeId}/picture/${pictureId}');
+  revalidatePath(
+    `places/${getPlaceId(formData)}/picture/${getPictureId(formData)}`,
+  );
+}
 
-  return {
-    pictureId: state.pictureId,
-    placeId: state.placeId,
-    body: '',
-  };
+function getPictureId(formData: FormData): string {
+  return formData.get('pictureId')?.toString()!;
+}
+
+function getPlaceId(formData: FormData): string {
+  return formData.get('placeId')?.toString()!;
 }
